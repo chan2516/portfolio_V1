@@ -19,7 +19,7 @@ interface ExperienceProps {
 
 export const ExperienceSection: React.FC<ExperienceProps> = ({ isDarkMode }) => {
   const [activeTab, setActiveTab] = useState<'overview' | 'architecture'>('overview');
-  const exp = experienceData[0]; // Strategic ERP Solutions
+  const exp = experienceData[0];
 
   return (
     <section id="experience" className="py-20 border-t border-zinc-200 dark:border-zinc-800/80 relative">

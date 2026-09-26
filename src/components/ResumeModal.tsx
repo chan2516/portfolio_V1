@@ -41,17 +41,17 @@ PROFESSIONAL SUMMARY:
 ${candidateInfo.summary}
 
 TECHNICAL SKILLS:
-- Languages: Java 8 & 17, JavaScript, HTML5, CSS3, SQL
-- Core Java: OOP, Collections Framework, Multithreading, Streams & Lambdas
-- Backend: Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate, JSP/Servlets
-- Frontend: React.js, Axios, Bootstrap 5, Thymeleaf, Next.js
-- Architecture & APIs: Microservices, RESTful API Design, JWT Authentication, MVC
-- Databases: MySQL, PostgreSQL, JDBC
-- DevOps & Tools: Docker, Git, GitHub, Maven, CI/CD Pipelines, Postman, Swagger/OpenAPI, Apache Tomcat, Ubuntu Linux
-- Testing: JUnit 5, Mockito, Spring Boot Test, Postman API Testing
+- Languages: Java 17, Java 8, JavaScript (ES6+), SQL, HTML5, CSS3
+- Core Java: OOP, Collections, Generics, Exception Handling, Streams, Lambda Expressions, Multithreading, Concurrency
+- Backend: Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate/JPA, JDBC, JSP/Servlets
+- APIs & Architecture: RESTful APIs, Microservices, API Integration, JWT, RBAC, MVC, OpenAPI/Swagger
+- Frontend: React.js, Next.js, Axios, Bootstrap, Thymeleaf
+- Databases: PostgreSQL, MySQL, SQL, Database Design, Transactions, Indexing
+- Cloud & DevOps: AWS EC2, Docker, Docker Compose, GitHub Actions, CI/CD, Nginx, Linux/Ubuntu, Apache Tomcat
+- Testing & Tools: JUnit 5, Mockito, Spring Boot Test, Postman, Git, GitHub, Maven
 
 PROFESSIONAL EXPERIENCE:
-Java Developer | Strategic ERP Solutions | September 2025 – Present
+Java Developer | ITaakash Software Solutions Pvt. Ltd. | September 2025 – Present
 ${experienceData[0].bullets.map(b => `• ${b}`).join('\n')}
 
 PROJECTS:
@@ -63,6 +63,7 @@ Bachelor of Science in Information Technology — SIES College of Arts, Science 
 CERTIFICATIONS:
 - Full Stack Java Development Training — QUASTECH (2025)
 - Docker for Developers — Udemy (2026)
+- DevOps Training — Tutedude (2026)
     `.trim();
 
     navigator.clipboard.writeText(plainText);
@@ -143,6 +144,15 @@ CERTIFICATIONS:
                 {contactData.github}
               </a>
             </div>
+            <a
+              href="https://chandandev.me"
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 mt-3 text-xs font-semibold text-sky-600 dark:text-sky-400 hover:underline"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              View updated profile at chandandev.me
+            </a>
           </div>
 
           {/* Professional Summary */}
@@ -205,7 +215,7 @@ CERTIFICATIONS:
             <div>
               <div className="flex flex-col sm:flex-row sm:items-center justify-between text-xs sm:text-sm font-bold">
                 <span className="text-zinc-900 dark:text-white">
-                  Java Developer | Strategic ERP Solutions
+                  Java Developer | ITaakash Software Solutions Pvt. Ltd.
                 </span>
                 <span className="text-zinc-500 font-mono">
                   September 2025 – Present
@@ -273,22 +283,16 @@ CERTIFICATIONS:
                 CERTIFICATIONS
               </h2>
               <div className="text-xs sm:text-sm space-y-1.5">
-                <div>
-                  <div className="font-bold text-zinc-900 dark:text-white">
-                    Full Stack Java Development Training
+                {certificationsData.map((certification) => (
+                  <div key={certification.id}>
+                    <div className="font-bold text-zinc-900 dark:text-white">
+                      {certification.title}
+                    </div>
+                    <div className="text-zinc-500 font-mono text-xs">
+                      {certification.issuer} ({certification.year})
+                    </div>
                   </div>
-                  <div className="text-zinc-500 font-mono text-xs">
-                    QUASTECH (2025)
-                  </div>
-                </div>
-                <div>
-                  <div className="font-bold text-zinc-900 dark:text-white">
-                    Docker for Developers
-                  </div>
-                  <div className="text-zinc-500 font-mono text-xs">
-                    Udemy (2026)
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>

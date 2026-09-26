@@ -11,20 +11,20 @@ import {
 
 export const candidateInfo = {
   name: 'CHANDAN VISHWAKARMA',
-  title: 'Java Developer | Software Engineer | SDE-1',
-  roleBadge: 'Enterprise Java 17 & Microservices Specialist',
+  title: 'Java Developer | Spring Boot | Microservices | REST APIs',
+  roleBadge: 'Java Developer building secure, production-ready services',
   summary:
-    'Java Developer with 1+ year of professional experience building enterprise applications, RESTful microservices, and secure integrations using Java 17, Spring Boot, Spring Security, and JPA/Hibernate. Integrated 3+ banking APIs within a live ERP platform and contributed to API design, production troubleshooting, documentation, and CI/CD deployments. Also built and deployed 2 full-stack applications using Next.js / React.js, Spring Boot, JWT/RBAC, SQL, Docker, automated testing, and cloud platforms.',
+    'Java Developer with 1+ year of professional experience building enterprise applications, REST APIs, and secure integrations using Java, Spring Boot, Spring Security, JPA/Hibernate, and SQL. Hands-on experience integrating 3+ external banking APIs within a production ERP platform, troubleshooting production issues, documenting APIs, and supporting CI/CD deployments on Linux. Built and deployed full-stack applications using Spring Boot, React/Next.js, PostgreSQL, Redis, Docker, AWS, and GitHub Actions.',
   bioParagraphs: [
     'Specializing in robust backend architecture with Java 17 and Spring Boot 3, I bring hands-on experience designing distributed microservices, implementing high-throughput banking payment integrations, and enforcing enterprise-grade security protocols.',
     'My engineering approach emphasizes scalable design patterns, RESTful API documentation with OpenAPI/Swagger, containerized deployments on AWS EC2 & Ubuntu Linux, and database query optimization across PostgreSQL and MySQL.',
   ],
-  status: 'Open to SDE-1 / Software Engineer Opportunities',
+  status: 'Open to Java Developer / Backend Engineer Opportunities',
 };
 
 export const contactData: CandidateContact = {
   phone: '+91-7208342941',
-  email: 'chandanvishwakarma2038@gmail.com',
+  email: 'chandanv345459@gmail.com',
   location: 'Mumbai, Maharashtra, India',
   linkedin: 'linkedin.com/in/chan2004',
   linkedinUrl: 'https://linkedin.com/in/chan2004',
@@ -59,19 +59,19 @@ export const experienceData: ExperienceItem[] = [
   {
     id: 'strategic-erp',
     role: 'Java Developer',
-    company: 'Strategic ERP Solutions',
+    company: 'ITaakash Software Solutions Pvt. Ltd.',
     location: 'Mumbai, Maharashtra',
     period: 'September 2025 – Present',
     current: true,
     description:
-      'Spearheading enterprise microservices development, banking API integrations, and core financial modules within a live ERP platform handling real-time transactions.',
+      'Developed and maintained Java/Spring enterprise modules and RESTful services for an ERP platform supporting financial and payment workflows.',
     bullets: [
-      'Engineered RESTful microservices integrating 3+ banking APIs into the ERP platform, enabling secure transactions, automated reconciliation, and real-time financial reporting.',
-      'Built and maintained JSP-based frontend modules with Spring MVC backend, optimizing data rendering across financial dashboards.',
-      'Implemented Spring Security configurations and session management to meet client-mandated security standards.',
-      'Designed and documented REST endpoints using Swagger/OpenAPI, cutting new developer onboarding time by 40%.',
-      'Collaborated in Agile/Scrum sprints with QA and DevOps teams on CI/CD deployments to Ubuntu Linux servers.',
-      'Diagnosed and resolved critical production bugs in ERP financial modules using systematic logging and root-cause analysis, minimizing downtime.',
+      'Integrated 3+ external banking APIs with request/response handling, validation, authentication, error handling, and production integration workflows.',
+      'Developed and maintained JSP-based frontend modules with Spring MVC for financial dashboards and business workflows.',
+      'Implemented Spring Security configurations and session-management controls for secure enterprise application access.',
+      'Designed, implemented, and documented REST endpoints using Swagger/OpenAPI, improving API discoverability and developer onboarding.',
+      'Investigated and resolved production issues across application, API, database, and integration layers using logging, debugging, and root-cause analysis.',
+      'Collaborated with QA and DevOps teams in Agile/Scrum delivery cycles, supporting testing, releases, and CI/CD deployments to Ubuntu Linux environments.',
     ],
     techStack: [
       'Java 17',
@@ -156,7 +156,7 @@ export const projectsData: ProjectItem[] = [
       },
     ],
     githubUrl: 'https://github.com/Chan236',
-    liveUrl: 'https://github.com/Chan236',
+    liveUrl: 'https://shop.chandandev.me',
     metrics: [
       { label: 'Container Services', value: '5 Containers' },
       { label: 'Deployment Uptime', value: 'Zero-Downtime' },
@@ -356,6 +356,18 @@ export const certificationsData: CertificationItem[] = [
       'Container Networking & Volumes',
       'CI/CD Pipelines with Docker Hub & EC2',
       'Production Security Hardening',
+    ],
+  },
+  {
+    id: 'tutedude-devops',
+    title: 'DevOps Training',
+    issuer: 'Tutedude',
+    year: '2026',
+    skillsCovered: [
+      'Docker and Docker Compose',
+      'CI/CD with GitHub Actions',
+      'Linux deployment workflows',
+      'Cloud and infrastructure fundamentals',
     ],
   },
 ];

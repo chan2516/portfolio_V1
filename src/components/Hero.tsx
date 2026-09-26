@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <span className="font-semibold">Java Developer</span>
               <span className="text-zinc-400 dark:text-zinc-600">•</span>
-              <span>Strategic ERP Solutions</span>
+              <span>ITaakash Software Solutions</span>
               <span className="text-zinc-400 dark:text-zinc-600">•</span>
               <span className="text-xs opacity-90">Open to Opportunities</span>
             </div>
@@ -71,15 +71,17 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
             {/* Candidate Identity */}
             <div className="space-y-3">
               <h1 className={`text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.1] ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
-                Hi, I'm <span className="bg-gradient-to-r from-indigo-500 via-blue-500 to-emerald-400 bg-clip-text text-transparent">{candidateInfo.name}</span>
+                Hi, I'm <span className="bg-gradient-to-r from-sky-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">{candidateInfo.name}</span>
               </h1>
               
               <div className="flex flex-wrap items-center gap-2 text-base sm:text-lg font-semibold text-indigo-600 dark:text-indigo-400">
                 <span className="font-mono">JAVA DEVELOPER</span>
                 <span className="text-zinc-300 dark:text-zinc-700">|</span>
-                <span className="font-mono">SOFTWARE ENGINEER</span>
+                <span className="font-mono">SPRING BOOT</span>
                 <span className="text-zinc-300 dark:text-zinc-700">|</span>
-                <span className="font-mono">SDE-1</span>
+                <span className="font-mono">MICROSERVICES</span>
+                <span className="text-zinc-300 dark:text-zinc-700">|</span>
+                <span className="font-mono">REST APIs</span>
               </div>
 
               {/* Location & Quick Contact Pills */}
@@ -262,7 +264,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   </div>
                   <div className="pl-4">
                     <span className="text-indigo-600 dark:text-indigo-400">String</span> currentRole ={' '}
-                    <span className="text-emerald-600 dark:text-emerald-400">"Java Developer @ Strategic ERP"</span>;
+                    <span className="text-emerald-600 dark:text-emerald-400">"Java Developer @ ITaakash"</span>;
                   </div>
                   <div className="pl-4">
                     <span className="text-indigo-600 dark:text-indigo-400">String[]</span> coreTech = {'{'}

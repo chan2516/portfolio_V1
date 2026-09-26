@@ -75,7 +75,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
             Let's Connect
           </h2>
           <p className={`mt-3 text-base sm:text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-            I am actively looking for SDE-1 / Java Developer roles and would love to discuss how my backend and full-stack expertise can contribute to your team.
+            I am actively looking for Java Developer and backend engineering roles and would love to discuss how my backend and full-stack expertise can contribute to your team.
           </p>
         </div>
 
@@ -209,7 +209,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                 Send a Direct Message
               </h3>
               <p className={`text-xs sm:text-sm mb-6 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                Whether you have a vacancy for an SDE-1 / Java Engineer or want to discuss enterprise architecture, drop a message below.
+                Whether you have a vacancy for a Java Engineer or want to discuss enterprise architecture, drop a message below.
               </p>
 
               {formStatus === 'success' ? (
@@ -269,7 +269,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                       type="text"
                       value={formData.subject}
                       onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                      placeholder="e.g. SDE-1 Opening at [Company Name]"
+                      placeholder="e.g. Java Developer opening at [Company Name]"
                       className={`w-full px-3.5 py-2.5 rounded-xl text-sm border focus:outline-none focus:ring-2 focus:ring-indigo-500 transition-all ${
                         isDarkMode
                           ? 'bg-zinc-950 border-zinc-800 text-white placeholder-zinc-600'
