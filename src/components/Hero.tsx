@@ -53,7 +53,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
           
           {/* Main Content Column */}
           <div className="lg:col-span-7 space-y-6 text-left">
