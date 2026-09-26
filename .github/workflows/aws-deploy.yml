@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECS
+name: Build and deploy Docker image
 
 on:
   push:
@@ -6,46 +6,52 @@ on:
       - main
 
 env:
-  AWS_REGION: ap-south-1                   # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: devfolio-pro             # set this to your Amazon ECR repository name
-  ECS_SERVICE: portfolio                   # set this to your Amazon ECS service name
-  ECS_CLUSTER: App_cluster                 # set this to your Amazon ECS cluster name
+  DEPLOY_DIR: /opt/portfolio
 
 jobs:
   deploy:
-    name: Deploy
+    name: Build, publish, and deploy
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
+    - name: Check out repository
       uses: actions/checkout@v4
 
-    - name: Configure AWS credentials
-      uses: aws-actions/configure-aws-credentials@v4
+    - name: Log in to Docker Hub
+      uses: docker/login-action@v3
       with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: ${{ env.AWS_REGION }}
+        username: ${{ secrets.DOCKERHUB_USERNAME }}
+        password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Login to Amazon ECR
-      id: login-ecr
-      uses: aws-actions/amazon-ecr-login@v2
-
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
+    - name: Build and push image
       env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG: latest
-        COMMIT_HASH: ${{ github.sha }}
+        IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/portfolio
       run: |
-        # Build a docker container and
-        # push it to ECR so that it can
-        # be deployed to ECS.
-        docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -t $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH .
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-        docker push $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH
-        echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+        docker build --pull \
+          --tag "$IMAGE_NAME:${{ github.sha }}" \
+          --tag "$IMAGE_NAME:latest" .
+        docker push "$IMAGE_NAME:${{ github.sha }}"
+        docker push "$IMAGE_NAME:latest"
 
-    - name: Force new deployment on ECS
+    - name: Configure SSH
       run: |
-        aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --force-new-deployment
+        sudo apt-get update
+        sudo apt-get install -y sshpass
+
+    - name: Copy deployment configuration
+      env:
+        SSHPASS: ${{ secrets.SERVER_PASS }}
+      run: |
+        sshpass -e scp -o StrictHostKeyChecking=accept-new \
+          docker-compose.prod.yml \
+          "${{ secrets.SERVER_USER }}@${{ secrets.IP }}:${{ env.DEPLOY_DIR }}/docker-compose.yml"
+
+    - name: Pull image and restart container
+      env:
+        DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
+        DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
+        SSHPASS: ${{ secrets.SERVER_PASS }}
+      run: |
+        printf '%s' "$DOCKERHUB_TOKEN" | sshpass -e ssh -o StrictHostKeyChecking=accept-new \
+          "${{ secrets.SERVER_USER }}@${{ secrets.IP }}" \
+          "export IMAGE_TAG='${{ github.sha }}' DOCKERHUB_USERNAME='$DOCKERHUB_USERNAME'; cd '$DEPLOY_DIR'; docker login --username \"\$DOCKERHUB_USERNAME\" --password-stdin; docker compose pull; docker compose up -d --remove-orphans; docker image prune -f"

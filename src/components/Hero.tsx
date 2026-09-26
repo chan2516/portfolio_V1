@@ -196,7 +196,34 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
           </div>
 
           {/* Right Column: Interactive Tech Architecture Snapshot Card */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-5 space-y-6">
+            {/* Personal profile card */}
+            <div className={`rounded-2xl border overflow-hidden shadow-xl ${
+              isDarkMode
+                ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
+                : 'bg-white border-zinc-200 shadow-zinc-200/50'
+            }`}>
+              <img
+                src="/profile.jpg"
+                alt="Chandan Vishwakarma, Java Developer and Software Engineer"
+                className="w-full aspect-[4/3] object-cover object-top"
+              />
+              <div className="px-5 py-4 flex items-center justify-between gap-4">
+                <div>
+                  <p className={`font-bold ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
+                    Chandan Vishwakarma
+                  </p>
+                  <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
+                    Java Developer &amp; Software Engineer
+                  </p>
+                </div>
+                <span className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
+                  <span className="w-2 h-2 rounded-full bg-emerald-500" />
+                  Available
+                </span>
+              </div>
+            </div>
+
             <div className={`rounded-2xl border p-6 transition-all relative shadow-xl ${
               isDarkMode
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
