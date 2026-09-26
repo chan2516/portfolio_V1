@@ -1,4 +1,4 @@
-name: Deploy to Amazon ECS
+name: Deploy to Amazon EC2
 
 on:
   push:
@@ -8,12 +8,11 @@ on:
 env:
   AWS_REGION: ap-south-1                   # set this to your preferred AWS region, e.g. us-west-1
   ECR_REPOSITORY: devfolio-pro             # set this to your Amazon ECR repository name
-  ECS_SERVICE: portfolio                   # set this to your Amazon ECS service name
-  ECS_CLUSTER: App_cluster                 # set this to your Amazon ECS cluster name
+  CONTAINER_NAME: portfolio                # stable container name on EC2 host
 
 jobs:
   deploy:
-    name: Deploy
+    name: Deploy to EC2
     runs-on: ubuntu-latest
 
     steps:
@@ -46,6 +45,50 @@ jobs:
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$COMMIT_HASH
         echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Force new deployment on ECS
+    # ECS deployment retired in favor of direct EC2 deployment via SSH.
+    - name: Configure SSH key
       run: |
-        aws ecs update-service --cluster ${{ env.ECS_CLUSTER }} --service ${{ env.ECS_SERVICE }} --force-new-deployment
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_SSH_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+        ssh-keyscan -H "${{ secrets.EC2_HOST }}" >> ~/.ssh/known_hosts
+
+    - name: Deploy container on EC2
+      env:
+        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+      run: |
+        ssh ${{ secrets.EC2_USER }}@${{ secrets.EC2_HOST }} \
+        "AWS_REGION='${{ env.AWS_REGION }}' ECR_REGISTRY='${{ steps.login-ecr.outputs.registry }}' ECR_REPOSITORY='${{ env.ECR_REPOSITORY }}' CONTAINER_NAME='${{ env.CONTAINER_NAME }}' bash -s" <<'EOF'
+        set -euo pipefail
+
+        APP_DIR="/opt/portfolio"
+        IMAGE_URI="${ECR_REGISTRY}/${ECR_REPOSITORY}:latest"
+
+        mkdir -p "${APP_DIR}"
+        cd "${APP_DIR}"
+
+        PREVIOUS_IMAGE="$(docker inspect --format='{{.Config.Image}}' "${CONTAINER_NAME}" 2>/dev/null || true)"
+
+        aws ecr get-login-password --region "${AWS_REGION}" | docker login --username AWS --password-stdin "${ECR_REGISTRY}"
+        docker pull "${IMAGE_URI}"
+
+        docker rm -f "${CONTAINER_NAME}" 2>/dev/null || true
+        docker run -d --name "${CONTAINER_NAME}" --restart unless-stopped -p 80:80 "${IMAGE_URI}"
+
+        sleep 5
+        if ! curl -fsS http://localhost >/dev/null; then
+          echo "Health check failed for latest image. Attempting rollback..."
+          docker logs "${CONTAINER_NAME}" || true
+          docker rm -f "${CONTAINER_NAME}" 2>/dev/null || true
+
+          if [ -n "${PREVIOUS_IMAGE}" ]; then
+            docker run -d --name "${CONTAINER_NAME}" --restart unless-stopped -p 80:80 "${PREVIOUS_IMAGE}"
+            sleep 5
+            curl -fsS http://localhost >/dev/null
+            echo "Rollback succeeded: ${PREVIOUS_IMAGE}"
+          else
+            echo "No previous image available for rollback."
+            exit 1
+          fi
+        fi
+        EOF
