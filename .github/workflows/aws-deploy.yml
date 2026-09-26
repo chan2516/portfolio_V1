@@ -42,7 +42,7 @@ jobs:
       env:
         SSHPASS: ${{ secrets.SERVER_PASS }}
       run: |
-        tar -czf - docker-compose.prod.yml | sshpass -e ssh \
+        tar -czf - docker-compose.prod.yml Caddyfile | sshpass -e ssh \
           -o StrictHostKeyChecking=accept-new \
           -o PreferredAuthentications=password \
           -o PubkeyAuthentication=no \

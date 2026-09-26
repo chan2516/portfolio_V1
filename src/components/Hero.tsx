@@ -203,13 +203,15 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
                 : 'bg-white border-zinc-200 shadow-zinc-200/50'
             }`}>
-              <img
-                src="/profile.jpg"
-                alt="Chandan Vishwakarma, Java Developer and Software Engineer"
-                loading="eager"
-                decoding="async"
-                className="w-full aspect-[4/5] object-cover object-center"
-              />
+              <div className="aspect-[4/5] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                <img
+                  src="/profile.jpg"
+                  alt="Chandan Vishwakarma, Java Developer and Software Engineer"
+                  loading="eager"
+                  decoding="async"
+                  className="w-full h-full object-cover object-center scale-[1.18]"
+                />
+              </div>
               <div className="px-5 py-4 flex items-center justify-between gap-4 border-t border-zinc-200/80 dark:border-zinc-800">
                 <div>
                   <p className={`font-bold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>

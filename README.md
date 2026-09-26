@@ -33,7 +33,20 @@ sudo chown "$USER":"$USER" /opt/portfolio
 sudo usermod -aG docker "$USER"
 ```
 
-Log out and back in after changing the Docker group. The server must allow inbound SSH and HTTP traffic. If the Docker Hub repository is private, the deploy user also needs permission to pull it; the workflow performs a non-interactive Docker Hub login during each deployment.
+Log out and back in after changing the Docker group. The server must allow inbound SSH, HTTP, and HTTPS traffic. If the Docker Hub repository is private, the deploy user also needs permission to pull it; the workflow performs a non-interactive Docker Hub login during each deployment.
+
+### HTTPS endpoint
+
+The production Compose stack runs the portfolio privately inside Docker and uses Caddy as the public reverse proxy. Caddy listens on ports `80` and `443`, automatically obtains and renews a Let's Encrypt certificate, and forwards traffic to the portfolio container.
+
+Before deploying HTTPS, create these DNS records for the server IP:
+
+| Type | Name | Value |
+| --- | --- | --- |
+| `A` | `@` | Your server IP |
+| `A` | `www` | Your server IP |
+
+After DNS has propagated and ports `80` and `443` are open in both the cloud firewall and UFW, the site is available at `https://chandandev.me`. Do not run another service on host ports `80` or `443`; Caddy owns those ports.
 
 ### GitHub repository secrets
 

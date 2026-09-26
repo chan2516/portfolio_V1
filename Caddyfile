@@ -1,0 +1,3 @@
+chandandev.me, www.chandandev.me {
+    reverse_proxy portfolio:80
+}
