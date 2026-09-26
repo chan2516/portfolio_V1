@@ -42,7 +42,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
   return (
     <section
       id="hero"
-      className="relative pt-28 pb-16 md:pt-36 md:pb-24 overflow-hidden"
+      className="relative pt-24 pb-12 md:pt-28 md:pb-16 overflow-hidden"
     >
       {/* Subtle Background Glow and Tech Grid */}
       <div
@@ -53,10 +53,10 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
       />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1.12fr)_minmax(340px,0.88fr)] gap-10 xl:gap-16 items-start">
           
           {/* Main Content Column */}
-          <div className="lg:col-span-7 space-y-6 text-left">
+          <div className="max-w-3xl space-y-5 text-left">
             
             {/* Live Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium border shadow-xs transition-colors bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
@@ -70,7 +70,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
 
             {/* Candidate Identity */}
             <div className="space-y-3">
-              <h1 className={`text-4xl sm:text-5xl xl:text-6xl font-extrabold tracking-tight leading-[1.1] ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
+              <h1 className={`text-4xl sm:text-5xl xl:text-[4.25rem] font-extrabold tracking-tight leading-[1.02] ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
                 Hi, I'm <span className="bg-gradient-to-r from-sky-400 via-cyan-400 to-emerald-400 bg-clip-text text-transparent">{candidateInfo.name}</span>
               </h1>
               
@@ -114,7 +114,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
             </div>
 
             {/* Professional Summary */}
-            <p className={`text-base sm:text-lg leading-relaxed ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
+            <p className={`max-w-2xl text-base sm:text-lg leading-relaxed ${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'}`}>
               {candidateInfo.summary}
             </p>
 
@@ -198,14 +198,14 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
           </div>
 
           {/* Right Column: Interactive Tech Architecture Snapshot Card */}
-          <div className="lg:col-span-5 space-y-6">
+          <div className="w-full max-w-md lg:justify-self-end space-y-5">
             {/* Personal profile card */}
             <div className={`rounded-2xl border overflow-hidden shadow-xl ${
               isDarkMode
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
                 : 'bg-white border-zinc-200 shadow-zinc-200/50'
             }`}>
-              <div className="aspect-[4/5] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+              <div className="aspect-[5/6] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                 <img
                   src="/profile.jpg"
                   alt="Chandan Vishwakarma, Java Developer and Software Engineer"
@@ -230,7 +230,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               </div>
             </div>
 
-            <div className={`rounded-2xl border p-6 transition-all relative shadow-xl ${
+            <div className={`rounded-2xl border p-5 transition-all relative shadow-xl ${
               isDarkMode
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
                 : 'bg-white border-zinc-200 shadow-zinc-200/50'
@@ -306,7 +306,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
         </div>
 
         {/* Highlight Stats Bar */}
-        <div className="mt-12 sm:mt-16 pt-8 border-t border-zinc-200 dark:border-zinc-800/80">
+        <div className="mt-10 sm:mt-12 pt-6 border-t border-zinc-200 dark:border-zinc-800/80">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {candidateStats.map((stat, idx) => (
               <div 
