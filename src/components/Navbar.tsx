@@ -87,7 +87,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
               <span className="text-indigo-500 font-mono text-sm">.java</span>
             </div>
             <div className={`text-xs font-mono hidden sm:block ${isDarkMode ? 'text-zinc-400' : 'text-zinc-500'}`}>
-              Java Developer • Spring Boot
+              Software Engineer • Java
             </div>
           </div>
         </a>

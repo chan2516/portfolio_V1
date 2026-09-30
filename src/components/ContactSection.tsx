@@ -9,9 +9,6 @@ import {
   Check, 
   Send, 
   ExternalLink,
-  MessageSquare,
-  Sparkles,
-  ArrowRight
 } from 'lucide-react';
 import { contactData, candidateInfo } from '../data/portfolioData';
 
@@ -30,7 +27,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
     message: '',
   });
 
-  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success'>('idle');
+  const [formStatus, setFormStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [formError, setFormError] = useState('');
+  const [website, setWebsite] = useState('');
 
   const handleCopy = (text: string, type: 'email' | 'phone') => {
     navigator.clipboard.writeText(text);
@@ -43,16 +42,51 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || !formData.email || !formData.message) return;
 
+    // Honeypot field: bots tend to fill this hidden input.
+    if (website) {
+      setFormStatus('success');
+      return;
+    }
+
+    const endpoint = import.meta.env.VITE_CONTACT_FORM_ENDPOINT;
+    if (!endpoint) {
+      setFormStatus('error');
+      setFormError('Direct messaging is not configured yet. Please use the email link below.');
+      return;
+    }
+
     setFormStatus('sending');
-    setTimeout(() => {
+    setFormError('');
+
+    try {
+      const response = await fetch(endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          subject: formData.subject.trim() || 'Portfolio enquiry',
+          message: formData.message.trim(),
+          source: window.location.href,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Message service returned an error.');
+
       setFormStatus('success');
       setFormData({ name: '', email: '', subject: '', message: '' });
       setTimeout(() => setFormStatus('idle'), 4000);
-    }, 900);
+    } catch {
+      setFormStatus('error');
+      setFormError('Your message could not be sent. Please try again or email me directly.');
+    }
   };
 
   const mailtoLink = `mailto:${contactData.email}?subject=${encodeURIComponent(
@@ -75,7 +109,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
             Let's Connect
           </h2>
           <p className={`mt-3 text-base sm:text-lg ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-            I am actively looking for Java Developer and backend engineering roles and would love to discuss how my backend and full-stack expertise can contribute to your team.
+            I am open to software engineering, Java backend, and application support opportunities. Send a message here or contact me directly by email, phone, or LinkedIn.
           </p>
         </div>
 
@@ -191,7 +225,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                 <Github className="w-5 h-5 shrink-0 text-zinc-400" />
                 <div className="min-w-0">
                   <div className="text-xs text-zinc-500">GitHub</div>
-                  <div className="text-xs font-semibold truncate font-mono">Chan236</div>
+                  <div className="text-xs font-semibold truncate font-mono">Chan2516</div>
                 </div>
               </a>
             </div>
@@ -209,7 +243,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                 Send a Direct Message
               </h3>
               <p className={`text-xs sm:text-sm mb-6 ${isDarkMode ? 'text-zinc-400' : 'text-zinc-600'}`}>
-                Whether you have a vacancy for a Java Engineer or want to discuss enterprise architecture, drop a message below.
+                Have a role, project, or technical conversation in mind? Share the details and I will reply by email.
               </p>
 
               {formStatus === 'success' ? (
@@ -224,6 +258,18 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-4">
+                  <div className="absolute -left-[10000px]" aria-hidden="true">
+                    <label htmlFor="website">Website</label>
+                    <input
+                      id="website"
+                      name="website"
+                      type="text"
+                      tabIndex={-1}
+                      autoComplete="off"
+                      value={website}
+                      onChange={(e) => setWebsite(e.target.value)}
+                    />
+                  </div>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-mono font-medium text-zinc-500 dark:text-zinc-400 mb-1.5">
@@ -320,6 +366,11 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                       <ExternalLink className="w-3 h-3" />
                     </a>
                   </div>
+                  {formStatus === 'error' && (
+                    <div role="alert" className="rounded-xl border border-rose-500/30 bg-rose-500/10 px-4 py-3 text-sm text-rose-600 dark:text-rose-300">
+                      {formError}
+                    </div>
+                  )}
                 </form>
               )}
             </div>

@@ -61,7 +61,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
             {/* Live Status Pill */}
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium border shadow-xs transition-colors bg-emerald-500/10 border-emerald-500/30 text-emerald-600 dark:text-emerald-400">
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span className="font-semibold">Java Developer</span>
+              <span className="font-semibold">Software Engineer</span>
               <span className="text-zinc-400 dark:text-zinc-600">•</span>
               <span>ITaakash Software Solutions</span>
               <span className="text-zinc-400 dark:text-zinc-600">•</span>
@@ -75,11 +75,11 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               </h1>
               
               <div className="flex flex-wrap items-center gap-2 text-base sm:text-lg font-semibold text-indigo-600 dark:text-indigo-400">
-                <span className="font-mono">JAVA DEVELOPER</span>
+                <span className="font-mono">SOFTWARE ENGINEER</span>
                 <span className="text-zinc-300 dark:text-zinc-700">|</span>
                 <span className="font-mono">SPRING BOOT</span>
                 <span className="text-zinc-300 dark:text-zinc-700">|</span>
-                <span className="font-mono">MICROSERVICES</span>
+                <span className="font-mono">APPLICATION SUPPORT</span>
                 <span className="text-zinc-300 dark:text-zinc-700">|</span>
                 <span className="font-mono">REST APIs</span>
               </div>
@@ -167,7 +167,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                       ? 'border-zinc-800 bg-zinc-900 hover:bg-zinc-800 text-zinc-200' 
                       : 'border-zinc-200 bg-white hover:bg-zinc-50 text-zinc-800 shadow-xs'
                   }`}
-                  title="View GitHub (Chan236)"
+                  title="View GitHub (Chan2516)"
                 >
                   <Github className="w-4 h-4" />
                 </a>
@@ -208,7 +208,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               <div className="aspect-[5/6] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                 <img
                   src="/profile.jpg"
-                  alt="Chandan Vishwakarma, Java Developer and Software Engineer"
+                  alt="Chandan Vishwakarma, software engineer and application support professional"
                   loading="eager"
                   decoding="async"
                   className="w-full h-full object-cover object-center scale-[1.18]"
@@ -220,7 +220,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                     Chandan Vishwakarma
                   </p>
                   <p className="text-xs text-zinc-500 dark:text-zinc-400 mt-0.5">
-                    Java Developer &amp; Software Engineer
+                    Software Engineer &amp; Application Support
                   </p>
                 </div>
                 <span className="shrink-0 inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-600 dark:text-emerald-400">
@@ -264,7 +264,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   </div>
                   <div className="pl-4">
                     <span className="text-indigo-600 dark:text-indigo-400">String</span> currentRole ={' '}
-                    <span className="text-emerald-600 dark:text-emerald-400">"Java Developer @ ITaakash"</span>;
+                    <span className="text-emerald-600 dark:text-emerald-400">"Software Engineer @ ITaakash"</span>;
                   </div>
                   <div className="pl-4">
                     <span className="text-indigo-600 dark:text-indigo-400">String[]</span> coreTech = {'{'}

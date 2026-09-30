@@ -41,14 +41,13 @@ PROFESSIONAL SUMMARY:
 ${candidateInfo.summary}
 
 TECHNICAL SKILLS:
-- Languages: Java 17, Java 8, JavaScript (ES6+), SQL, HTML5, CSS3
-- Core Java: OOP, Collections, Generics, Exception Handling, Streams, Lambda Expressions, Multithreading, Concurrency
+- Languages: Java 17, Java 8, JavaScript, SQL, JSON
 - Backend: Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate/JPA, JDBC, JSP/Servlets
-- APIs & Architecture: RESTful APIs, Microservices, API Integration, JWT, RBAC, MVC, OpenAPI/Swagger
-- Frontend: React.js, Next.js, Axios, Bootstrap, Thymeleaf
-- Databases: PostgreSQL, MySQL, SQL, Database Design, Transactions, Indexing
+- APIs & Integration: REST APIs, Microservices, Banking API Integration, JWT, RBAC, OpenAPI/Swagger
+- Frontend: React.js, Next.js, Bootstrap
+- Databases: PostgreSQL, MySQL, SQL Query Optimization, Redis
 - Cloud & DevOps: AWS EC2, Docker, Docker Compose, GitHub Actions, CI/CD, Nginx, Linux/Ubuntu, Apache Tomcat
-- Testing & Tools: JUnit 5, Mockito, Spring Boot Test, Postman, Git, GitHub, Maven
+- Monitoring & Testing: Grafana, JUnit 5, Mockito, Postman, Git, GitHub, Maven
 
 PROFESSIONAL EXPERIENCE:
 Java Developer | ITaakash Software Solutions Pvt. Ltd. | September 2025 – Present
@@ -176,32 +175,28 @@ CERTIFICATIONS:
                 <span className="text-zinc-600 dark:text-zinc-400">Java 8 & 17, JavaScript, HTML5, CSS3, SQL</span>
               </div>
               <div>
-                <strong className="text-zinc-900 dark:text-white">Core Java:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">OOP, Collections Framework, Multithreading, Streams & Lambdas</span>
-              </div>
-              <div>
                 <strong className="text-zinc-900 dark:text-white">Backend:</strong>{' '}
                 <span className="text-zinc-600 dark:text-zinc-400">Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate, JSP/Servlets</span>
               </div>
               <div>
                 <strong className="text-zinc-900 dark:text-white">Frontend:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">React.js, Next.js, Axios, Bootstrap 5, Thymeleaf</span>
+                <span className="text-zinc-600 dark:text-zinc-400">React.js, Next.js, Bootstrap</span>
               </div>
               <div>
-                <strong className="text-zinc-900 dark:text-white">Architecture & APIs:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">Microservices, RESTful API Design, JWT Authentication, MVC</span>
+                <strong className="text-zinc-900 dark:text-white">APIs & Integration:</strong>{' '}
+                <span className="text-zinc-600 dark:text-zinc-400">REST, Microservices, Banking APIs, JWT, RBAC, OpenAPI/Swagger</span>
               </div>
               <div>
                 <strong className="text-zinc-900 dark:text-white">Databases:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">MySQL, PostgreSQL, JDBC, Redis</span>
+                <span className="text-zinc-600 dark:text-zinc-400">PostgreSQL, MySQL, SQL Query Optimization, Redis</span>
               </div>
               <div>
-                <strong className="text-zinc-900 dark:text-white">DevOps & Tools:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">Docker, Git, GitHub, Maven, CI/CD Pipelines, Postman, Swagger/OpenAPI, Apache Tomcat, Ubuntu Linux</span>
+                <strong className="text-zinc-900 dark:text-white">Cloud & DevOps:</strong>{' '}
+                <span className="text-zinc-600 dark:text-zinc-400">AWS EC2, Docker, ECS, ECR, GitHub Actions, CI/CD, Nginx, Linux/Ubuntu</span>
               </div>
               <div>
-                <strong className="text-zinc-900 dark:text-white">Testing:</strong>{' '}
-                <span className="text-zinc-600 dark:text-zinc-400">JUnit 5, Mockito, Spring Boot Test, Postman API Testing</span>
+                <strong className="text-zinc-900 dark:text-white">Monitoring & Testing:</strong>{' '}
+                <span className="text-zinc-600 dark:text-zinc-400">Grafana, JUnit 5, Mockito, Postman, Git, Maven</span>
               </div>
             </div>
           </div>

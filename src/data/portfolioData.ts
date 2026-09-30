@@ -11,15 +11,15 @@ import {
 
 export const candidateInfo = {
   name: 'CHANDAN VISHWAKARMA',
-  title: 'Java Developer | Spring Boot | Microservices | REST APIs',
-  roleBadge: 'Java Developer building secure, production-ready services',
+  title: 'Software Engineer | Application Support | Java | SQL | Linux | AWS',
+  roleBadge: 'Software engineer focused on reliable enterprise applications',
   summary:
-    'Java Developer with 1+ year of professional experience building enterprise applications, REST APIs, and secure integrations using Java, Spring Boot, Spring Security, JPA/Hibernate, and SQL. Hands-on experience integrating 3+ external banking APIs within a production ERP platform, troubleshooting production issues, documenting APIs, and supporting CI/CD deployments on Linux. Built and deployed full-stack applications using Spring Boot, React/Next.js, PostgreSQL, Redis, Docker, AWS, and GitHub Actions.',
+    'Software Engineer with 1+ year of experience developing and supporting enterprise ERP applications and banking integrations using Java, Spring Boot, and SQL. Skilled in production troubleshooting, log analysis, root-cause analysis, API testing, and resolving application, database, and integration issues with QA and DevOps teams.',
   bioParagraphs: [
     'Specializing in robust backend architecture with Java 17 and Spring Boot 3, I bring hands-on experience designing distributed microservices, implementing high-throughput banking payment integrations, and enforcing enterprise-grade security protocols.',
     'My engineering approach emphasizes scalable design patterns, RESTful API documentation with OpenAPI/Swagger, containerized deployments on AWS EC2 & Ubuntu Linux, and database query optimization across PostgreSQL and MySQL.',
   ],
-  status: 'Open to Java Developer / Backend Engineer Opportunities',
+  status: 'Open to Software Engineer / Application Support Opportunities',
 };
 
 export const contactData: CandidateContact = {
@@ -28,8 +28,8 @@ export const contactData: CandidateContact = {
   location: 'Mumbai, Maharashtra, India',
   linkedin: 'linkedin.com/in/chan2004',
   linkedinUrl: 'https://linkedin.com/in/chan2004',
-  github: 'github.com/Chan236',
-  githubUrl: 'https://github.com/Chan236',
+  github: 'github.com/Chan2516',
+  githubUrl: 'https://github.com/Chan2516',
 };
 
 export const candidateStats: CandidateStats[] = [
@@ -64,14 +64,14 @@ export const experienceData: ExperienceItem[] = [
     period: 'September 2025 – Present',
     current: true,
     description:
-      'Developed and maintained Java/Spring enterprise modules and RESTful services for an ERP platform supporting financial and payment workflows.',
+      'Develop and support Java/Spring enterprise modules, financial workflows, and banking integrations for a production ERP platform.',
     bullets: [
-      'Integrated 3+ external banking APIs with request/response handling, validation, authentication, error handling, and production integration workflows.',
-      'Developed and maintained JSP-based frontend modules with Spring MVC for financial dashboards and business workflows.',
-      'Implemented Spring Security configurations and session-management controls for secure enterprise application access.',
-      'Designed, implemented, and documented REST endpoints using Swagger/OpenAPI, improving API discoverability and developer onboarding.',
-      'Investigated and resolved production issues across application, API, database, and integration layers using logging, debugging, and root-cause analysis.',
-      'Collaborated with QA and DevOps teams in Agile/Scrum delivery cycles, supporting testing, releases, and CI/CD deployments to Ubuntu Linux environments.',
+      'Developed a configurable Spring Boot microservice integrating 3+ banking APIs for payment initiation, balance enquiry, and statement retrieval, reducing client-specific backend changes.',
+      'Automated transaction-status updates with Spring Scheduler and added structured logging and Grafana monitoring to improve diagnosis of integration failures.',
+      'Troubleshoot production issues across ERP applications, REST APIs, databases, and banking integrations using logs, debugging, and root-cause analysis.',
+      'Optimized complex SQL queries spanning 10–20 related tables and investigated issues across legacy Java 8/J2EE and JSP modules.',
+      'Execute unit and API tests with JUnit, Mockito, and Postman, and document REST endpoints with Swagger/OpenAPI.',
+      'Collaborate with business stakeholders, QA, and DevOps to clarify data flows, verify fixes, and support releases on Ubuntu Linux environments.',
     ],
     techStack: [
       'Java 17',
@@ -87,9 +87,9 @@ export const experienceData: ExperienceItem[] = [
       'CI/CD',
     ],
     metrics: [
-      { label: 'Onboarding Time Saved', value: '40%' },
+      { label: 'Related SQL Tables', value: '10–20' },
       { label: 'Banking Gateways', value: '3+' },
-      { label: 'System Uptime Impact', value: 'High' },
+      { label: 'Support Coverage', value: 'App · API · DB' },
     ],
   },
 ];
@@ -155,7 +155,7 @@ export const projectsData: ProjectItem[] = [
         badge: 'GitHub Actions + Watchtower',
       },
     ],
-    githubUrl: 'https://github.com/Chan236',
+    githubUrl: 'https://github.com/Chan2516',
     liveUrl: 'https://shop.chandandev.me',
     metrics: [
       { label: 'Container Services', value: '5 Containers' },
@@ -214,8 +214,8 @@ export const projectsData: ProjectItem[] = [
         badge: 'Render + PostgreSQL',
       },
     ],
-    githubUrl: 'https://github.com/Chan236',
-    liveUrl: 'https://github.com/Chan236',
+    githubUrl: 'https://github.com/Chan2516',
+    liveUrl: 'https://github.com/Chan2516',
     metrics: [
       { label: 'Security Model', value: 'JWT + Refresh Rotation' },
       { label: 'Cloud Host', value: 'Render + Managed DB' },
