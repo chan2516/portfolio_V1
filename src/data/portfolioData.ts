@@ -155,7 +155,7 @@ export const projectsData: ProjectItem[] = [
         badge: 'GitHub Actions + Watchtower',
       },
     ],
-    githubUrl: 'https://github.com/Chan2516',
+    githubUrl: 'https://github.com/chan2516/localcart',
     liveUrl: 'https://shop.chandandev.me',
     metrics: [
       { label: 'Container Services', value: '5 Containers' },
@@ -214,8 +214,7 @@ export const projectsData: ProjectItem[] = [
         badge: 'Render + PostgreSQL',
       },
     ],
-    githubUrl: 'https://github.com/Chan2516',
-    liveUrl: 'https://github.com/Chan2516',
+    githubUrl: 'https://github.com/chan2516/task_crm',
     metrics: [
       { label: 'Security Model', value: 'JWT + Refresh Rotation' },
       { label: 'Cloud Host', value: 'Render + Managed DB' },

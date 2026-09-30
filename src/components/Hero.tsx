@@ -197,21 +197,21 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
             )}
           </div>
 
-          {/* Right Column: Interactive Tech Architecture Snapshot Card */}
-          <div className="w-full max-w-md lg:justify-self-end space-y-5">
+          {/* Right Column: Professional portrait */}
+          <div className="w-full max-w-md lg:justify-self-end">
             {/* Personal profile card */}
             <div className={`rounded-2xl border overflow-hidden shadow-xl ${
               isDarkMode
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
                 : 'bg-white border-zinc-200 shadow-zinc-200/50'
             }`}>
-              <div className="aspect-[5/6] overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+              <div className="aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-800">
                 <img
-                  src="/profile.jpg"
+                  src="/profile-professional.png"
                   alt="Chandan Vishwakarma, software engineer and application support professional"
                   loading="eager"
                   decoding="async"
-                  className="w-full h-full object-cover object-center scale-[1.18]"
+                  className="w-full h-full object-cover object-center"
                 />
               </div>
               <div className="px-5 py-4 flex items-center justify-between gap-4 border-t border-zinc-200/80 dark:border-zinc-800">
@@ -230,75 +230,14 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               </div>
             </div>
 
-            <div className={`rounded-2xl border p-5 transition-all relative shadow-xl ${
-              isDarkMode
-                ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
-                : 'bg-white border-zinc-200 shadow-zinc-200/50'
-            }`}>
-              {/* Terminal Window Header */}
-              <div className="flex items-center justify-between pb-4 border-b border-zinc-200 dark:border-zinc-800">
-                <div className="flex items-center gap-2">
-                  <div className="w-3 h-3 rounded-full bg-rose-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-amber-500/80" />
-                  <div className="w-3 h-3 rounded-full bg-emerald-500/80" />
-                  <span className="ml-2 text-xs font-mono text-zinc-500 dark:text-zinc-400">
-                    chandan@sde-environment:~
-                  </span>
-                </div>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-600 dark:text-indigo-400 border border-indigo-500/20">
-                  Java 17 LTS
-                </span>
+            <div className="grid grid-cols-2 gap-3 mt-3">
+              <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
+                <div className="text-[10px] uppercase tracking-wider text-zinc-500">Core focus</div>
+                <div className="mt-1 text-sm font-semibold">Java &amp; Spring Boot</div>
               </div>
-
-              {/* Code Preview Content */}
-              <div className="pt-4 space-y-3 font-mono text-xs leading-relaxed">
-                <div className="text-zinc-400 dark:text-zinc-500">
-                  // Core Enterprise Profile
-                </div>
-                <div className="text-zinc-800 dark:text-zinc-200 space-y-1">
-                  <div>
-                    <span className="text-purple-600 dark:text-purple-400">class</span>{' '}
-                    <span className="text-amber-600 dark:text-amber-400">SoftwareEngineer</span>{' '}
-                    <span className="text-blue-600 dark:text-blue-400">implements</span>{' '}
-                    <span className="text-emerald-600 dark:text-emerald-400">SdeOne</span> {'{'}
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-indigo-600 dark:text-indigo-400">String</span> currentRole ={' '}
-                    <span className="text-emerald-600 dark:text-emerald-400">"Software Engineer @ ITaakash"</span>;
-                  </div>
-                  <div className="pl-4">
-                    <span className="text-indigo-600 dark:text-indigo-400">String[]</span> coreTech = {'{'}
-                  </div>
-                  <div className="pl-8 text-zinc-600 dark:text-zinc-300">
-                    "Java 17", "Spring Boot 3", "Spring Security",<br />
-                    "REST Microservices", "PostgreSQL", "Docker",<br />
-                    "Next.js", "AWS EC2", "Banking APIs"
-                  </div>
-                  <div className="pl-4">{'}'};</div>
-                  <div className="pl-4 pt-1">
-                    <span className="text-purple-600 dark:text-purple-400">public void</span>{' '}
-                    <span className="text-blue-600 dark:text-blue-400">deliverEnterpriseSolutions</span>() {'{'}
-                  </div>
-                  <div className="pl-8 text-emerald-600 dark:text-emerald-400">
-                    integrateBankingGateways(3);<br />
-                    optimizeQueryPerformance();<br />
-                    enforceZeroDowntimeDeployments();
-                  </div>
-                  <div className="pl-4">{'}'}</div>
-                  <div>{'}'}</div>
-                </div>
-
-                {/* Live Core Competencies Highlights */}
-                <div className="pt-4 border-t border-zinc-200 dark:border-zinc-800 grid grid-cols-2 gap-2">
-                  <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50">
-                    <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Specialization</div>
-                    <div className="text-xs font-semibold text-zinc-900 dark:text-white mt-0.5">Microservices & APIs</div>
-                  </div>
-                  <div className="p-2.5 rounded-lg bg-zinc-50 dark:bg-zinc-800/50 border border-zinc-200 dark:border-zinc-700/50">
-                    <div className="text-[10px] text-zinc-500 uppercase tracking-wider">Deployments</div>
-                    <div className="text-xs font-semibold text-zinc-900 dark:text-white mt-0.5">Docker & AWS EC2</div>
-                  </div>
-                </div>
+              <div className="rounded-xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 px-4 py-3">
+                <div className="text-[10px] uppercase tracking-wider text-zinc-500">Operations</div>
+                <div className="mt-1 text-sm font-semibold">Linux &amp; AWS</div>
               </div>
             </div>
           </div>
