@@ -1,6 +1,8 @@
 ﻿# Build Stage
 FROM node:20 AS build
 WORKDIR /app
+ARG VITE_CONTACT_FORM_ENDPOINT=https://formspree.io/f/meaodopp
+ENV VITE_CONTACT_FORM_ENDPOINT=$VITE_CONTACT_FORM_ENDPOINT
 COPY package*.json ./
 RUN npm ci
 COPY . .
