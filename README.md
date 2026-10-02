@@ -131,6 +131,8 @@ Use **Design** for the site font, heading font, paragraph size and line spacing.
 
 ### Updated full-stack deployment
 
+The Docker dependency stage compiles SQLite from source against the same Debian Bookworm/Node 22 environment used at runtime. This avoids downloaded native binaries that require a newer glibc (`GLIBC_2.38 not found`). The build checks that the native binding loads, and CI then checks application/container health. Build tools remain outside the final image.
+
 If deployment reports `container portfolio is unhealthy`, the pull completed but the application did not pass its database/API health check. The release now tests the built container with a real data volume before pushing, prepares storage ownership in a one-shot initializer, and prints application and health-check logs on failure. The deploy script reloads Caddy after API readiness. Push these changes as a new commit; rerunning an older workflow uses the older image and configuration. Persistent production data is retained.
 
 Deploy the complete release, not just dist: the image now includes Express, SQLite dependencies, and the built frontend. Push to main to run lint, tests, build, and deployment. The API is private on port 5000; Caddy handles HTTPS, with TRUST_PROXY_HOPS=1 preserving secure request origins. Compose waits for database/API health before reporting success. The server needs the current Docker Compose plugin supporting up --wait.

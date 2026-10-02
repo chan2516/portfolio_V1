@@ -7,11 +7,21 @@ RUN npm ci
 COPY . .
 RUN npm run lint && npm run build
 
+# sqlite3's published binary may require a newer glibc than Bookworm.
+# Compile it against our runtime OS and Node headers instead of shipping that
+# downloaded binary. Keep compilers out of the final image.
+FROM node:22-bookworm-slim AS production-deps
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends python3 make g++ && rm -rf /var/lib/apt/lists/*
+COPY package*.json ./
+RUN npm ci --omit=dev && npm_config_nodedir=/usr/local npm rebuild sqlite3 --build-from-source && node -e "require('sqlite3'); console.log('SQLite native binding loads successfully')" && npm cache clean --force
+
 FROM node:22-bookworm-slim AS runtime
 WORKDIR /app
 ENV NODE_ENV=production PORT=5000 DB_STORAGE=/data/database.sqlite UPLOAD_DIR=/data/uploads
 COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force && mkdir -p /data/uploads && chown -R node:node /data
+COPY --from=production-deps /app/node_modules ./node_modules
+RUN mkdir -p /data/uploads && chown -R node:node /data
 COPY --from=build /app/server ./server
 COPY --from=build /app/dist ./dist
 USER node

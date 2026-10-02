@@ -53,6 +53,8 @@ jobs:
         ready=false
         for attempt in $(seq 1 90); do
           state=$(docker inspect --format '{{.State.Health.Status}}' portfolio-ci)
+          running=$(docker inspect --format '{{.State.Running}}' portfolio-ci)
+          if [ "$running" != true ]; then break; fi
           if [ "$state" = healthy ]; then ready=true; break; fi
           if [ "$state" = unhealthy ]; then break; fi
           sleep 2
