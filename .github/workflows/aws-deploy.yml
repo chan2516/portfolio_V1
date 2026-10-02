@@ -97,3 +97,8 @@ jobs:
           -o PubkeyAuthentication=no \
           "${{ secrets.SERVER_USER }}@${{ secrets.IP }}" \
           "set -eu; export IMAGE_TAG='${{ github.sha }}' DOCKERHUB_USERNAME='$DOCKERHUB_USERNAME'; cd '$DEPLOY_DIR'; docker login --username \"\$DOCKERHUB_USERNAME\" --password-stdin; sh scripts/deploy.sh"
+
+    - name: Verify public HTTPS routing
+      run: |
+        curl --fail --show-error --silent --retry 8 --retry-all-errors --retry-delay 5 --max-time 15 https://chandandev.me/api/health
+        curl --fail --show-error --silent --retry 3 --retry-all-errors --retry-delay 5 --max-time 15 --output /dev/null https://chandandev.me/

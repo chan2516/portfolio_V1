@@ -16,7 +16,9 @@ trap diagnose EXIT
 docker compose config --quiet
 docker compose pull
 docker compose up -d --wait --wait-timeout 180 --remove-orphans
-# A bind-mounted Caddyfile can change while an existing Caddy process keeps
-# its previous configuration. Reload explicitly after the API is healthy.
+# Replacing a single-file bind mount can leave the container holding the old
+# inode. Recreate the proxy to attach the current Caddyfile; TLS data persists.
+docker compose up -d --no-deps --force-recreate --wait --wait-timeout 60 caddy
+docker compose exec -T caddy wget -q -O - http://portfolio:5000/api/health
 docker compose exec -T caddy caddy reload --config /etc/caddy/Caddyfile --adapter caddyfile
 docker image prune -f
