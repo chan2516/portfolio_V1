@@ -1,12 +1,13 @@
 import React from 'react';
 import { ArrowUp, Github, Linkedin, Mail, Phone, Terminal } from 'lucide-react';
-import { candidateInfo, contactData } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface FooterProps {
   isDarkMode: boolean;
 }
 
 export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
+  const { candidateInfo, contactData } = usePortfolioData();
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -45,8 +46,9 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
 
           {/* Socials & Back to Top */}
           <div className="flex items-center gap-3">
+            {contactData.websiteUrl && <a data-link-field="contactData:websiteUrl" href={contactData.websiteUrl} target="_blank" rel="noopener noreferrer" className="text-sm hover:text-indigo-500">Website</a>}
             <a
-              href={contactData.githubUrl}
+              data-link-field="contactData:githubUrl" href={contactData.githubUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg hover:text-zinc-900 dark:hover:text-white transition-colors"
@@ -55,7 +57,7 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
               <Github className="w-4 h-4" />
             </a>
             <a
-              href={contactData.linkedinUrl}
+              data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="p-2 rounded-lg hover:text-blue-500 transition-colors"

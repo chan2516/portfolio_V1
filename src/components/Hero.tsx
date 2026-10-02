@@ -1,3 +1,4 @@
+import { PortfolioImage } from './PortfolioImage';
 import React, { useState } from 'react';
 import { 
   ArrowRight, 
@@ -17,7 +18,7 @@ import {
   Database,
   ExternalLink
 } from 'lucide-react';
-import { candidateInfo, contactData, candidateStats } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface HeroProps {
   isDarkMode: boolean;
@@ -25,6 +26,7 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
+  const { candidateInfo, contactData, candidateStats } = usePortfolioData();
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
 
@@ -158,7 +160,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               {/* GitHub and LinkedIn Links */}
               <div className="flex items-center gap-2 ml-1">
                 <a
-                  href={contactData.githubUrl}
+                  data-link-field="contactData:githubUrl" href={contactData.githubUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub"
@@ -172,7 +174,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   <Github className="w-4 h-4" />
                 </a>
                 <a
-                  href={contactData.linkedinUrl}
+                  data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn"
@@ -205,14 +207,8 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                 ? 'bg-zinc-900/90 border-zinc-800/90 shadow-black/40'
                 : 'bg-white border-zinc-200 shadow-zinc-200/50'
             }`}>
-              <div className="aspect-square overflow-hidden bg-zinc-100 dark:bg-zinc-800">
-                <img
-                  src="/profile-professional.png"
-                  alt="Chandan Vishwakarma, software engineer and application support professional"
-                  loading="eager"
-                  decoding="async"
-                  className="w-full h-full object-cover object-center"
-                />
+              <div className="overflow-hidden bg-zinc-100 dark:bg-zinc-800">
+                <PortfolioImage imageKey="profile" />
               </div>
               <div className="px-5 py-4 flex items-center justify-between gap-4 border-t border-zinc-200/80 dark:border-zinc-800">
                 <div>

@@ -1,4 +1,6 @@
 import React from 'react';
+import { ResumeDocument } from './ResumeDocument';
+import { SiteContext } from '../siteConfig';
 import { Download, ExternalLink, FileText, X } from 'lucide-react';
 
 interface ResumeModalProps {
@@ -10,6 +12,7 @@ interface ResumeModalProps {
 const resumeUrl = '/Chandan_Vishwakarma_Resume.pdf';
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, isDarkMode }) => {
+  const config = React.useContext(SiteContext);
   if (!isOpen) return null;
 
   return (
@@ -20,29 +23,23 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose, isDar
             <div className="w-9 h-9 rounded-lg bg-indigo-500/15 text-indigo-500 flex items-center justify-center shrink-0"><FileText className="w-4.5 h-4.5" /></div>
             <div className="min-w-0">
               <h2 className="font-bold text-sm sm:text-base text-zinc-900 dark:text-white truncate">Chandan Vishwakarma - Resume</h2>
-              <p className="text-xs text-zinc-500">One-page ATS-friendly PDF</p>
+              <p className="text-xs text-zinc-500">Live resume · edited in Portfolio Studio</p>
             </div>
           </div>
 
           <div className="flex items-center gap-2">
-            <a href={resumeUrl} target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
-              <ExternalLink className="w-3.5 h-3.5" /> Open PDF
+            <a href="/resume" target="_blank" rel="noopener noreferrer" className="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-200 hover:bg-zinc-100 dark:hover:bg-zinc-800">
+              <ExternalLink className="w-3.5 h-3.5" /> Open / Print
             </a>
             <a href={resumeUrl} download="Chandan_Vishwakarma_Resume.pdf" className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white">
-              <Download className="w-3.5 h-3.5" /> Download
+              <Download className="w-3.5 h-3.5" /> Original PDF
             </a>
             <button onClick={onClose} aria-label="Close resume" className="p-2 rounded-lg text-zinc-500 hover:bg-zinc-100 dark:hover:bg-zinc-800"><X className="w-5 h-5" /></button>
           </div>
         </div>
 
         <div className="flex-1 min-h-0 bg-zinc-200 dark:bg-zinc-900">
-          <object data={resumeUrl} type="application/pdf" className="w-full h-full" aria-label="Resume PDF preview">
-            <div className="h-full flex flex-col items-center justify-center gap-4 p-8 text-center">
-              <FileText className="w-12 h-12 text-indigo-500" />
-              <p className="text-sm text-zinc-600 dark:text-zinc-300">PDF preview is unavailable in this browser.</p>
-              <a href={resumeUrl} download className="px-4 py-2 rounded-lg bg-indigo-600 text-white text-sm font-semibold">Download Resume</a>
-            </div>
-          </object>
+          <div className="h-full overflow-auto"><ResumeDocument config={config} /></div>
         </div>
       </div>
     </div>

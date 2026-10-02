@@ -9,13 +9,14 @@ import {
   ShieldAlert, 
   Layers
 } from 'lucide-react';
-import { sampleCodeSnippets } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface CodeSnippetPreviewProps {
   isDarkMode: boolean;
 }
 
 export const CodeSnippetPreview: React.FC<CodeSnippetPreviewProps> = ({ isDarkMode }) => {
+  const { sampleCodeSnippets } = usePortfolioData();
   const [activeSnippetId, setActiveSnippetId] = useState<string>('banking-service');
   const [copied, setCopied] = useState(false);
 

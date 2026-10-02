@@ -1,0 +1,10 @@
+# Local image test. Public deployment uses docker-compose.prod.yml and HTTPS.
+services:
+  portfolio:
+    build: .
+    ports:
+      - "8080:5000"
+    volumes:
+      - portfolio_local_data:/data
+volumes:
+  portfolio_local_data:

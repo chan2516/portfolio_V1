@@ -10,13 +10,14 @@ import {
   Send, 
   ExternalLink,
 } from 'lucide-react';
-import { contactData, candidateInfo } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface ContactSectionProps {
   isDarkMode: boolean;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) => {
+  const { contactData, candidateInfo } = usePortfolioData();
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [copiedPhone, setCopiedPhone] = useState(false);
   
@@ -195,8 +196,9 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
 
             {/* Social Links Cards */}
             <div className="grid grid-cols-2 gap-3 pt-1">
+              {contactData.websiteUrl && <a data-link-field="contactData:websiteUrl" href={contactData.websiteUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 inline-flex items-center gap-2 rounded-xl border border-indigo-500/30 p-4 font-semibold text-indigo-500">Website <ExternalLink size={16} /></a>}
               <a
-                href={contactData.linkedinUrl}
+                data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-4 rounded-xl border flex items-center gap-3 transition-colors ${
@@ -213,7 +215,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
               </a>
 
               <a
-                href={contactData.githubUrl}
+                data-link-field="contactData:githubUrl" href={contactData.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`p-4 rounded-xl border flex items-center gap-3 transition-colors ${

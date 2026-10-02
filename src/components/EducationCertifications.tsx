@@ -9,13 +9,14 @@ import {
   ExternalLink,
   BookOpen
 } from 'lucide-react';
-import { educationData, certificationsData } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface EducationCertificationsProps {
   isDarkMode: boolean;
 }
 
 export const EducationCertifications: React.FC<EducationCertificationsProps> = ({ isDarkMode }) => {
+  const { educationData, certificationsData } = usePortfolioData();
   return (
     <section id="education" className="py-20 border-t border-zinc-200 dark:border-zinc-800/80 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

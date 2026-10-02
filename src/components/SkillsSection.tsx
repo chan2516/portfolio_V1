@@ -14,13 +14,14 @@ import {
   ShieldCheck,
   TestTube
 } from 'lucide-react';
-import { skillGroups } from '../data/portfolioData';
+import { usePortfolioData } from '../siteConfig';
 
 interface SkillsSectionProps {
   isDarkMode: boolean;
 }
 
 export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
+  const { skillGroups } = usePortfolioData();
   const [searchQuery, setSearchQuery] = useState('');
   const [activeCategory, setActiveCategory] = useState<string>('all');
 
@@ -57,7 +58,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
 
       return groupMatch || skillMatch;
     });
-  }, [searchQuery, activeCategory]);
+  }, [searchQuery, activeCategory, skillGroups]);
 
   return (
     <section id="skills" className="py-20 border-t border-zinc-200 dark:border-zinc-800/80 relative">

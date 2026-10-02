@@ -12,7 +12,7 @@ import {
   Terminal,
   ExternalLink
 } from 'lucide-react';
-import { candidateInfo, contactData } from '../data/portfolioData';
+import { SiteContext, usePortfolioData } from '../siteConfig';
 
 interface NavbarProps {
   isDarkMode: boolean;
@@ -21,6 +21,8 @@ interface NavbarProps {
 }
 
 export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOpenResume }) => {
+  const { candidateInfo, contactData } = usePortfolioData();
+  const site = React.useContext(SiteContext);
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('hero');
@@ -29,13 +31,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
 
-      const sections = ['hero', 'experience', 'projects', 'code', 'skills', 'education', 'contact'];
+      const sections = site.sections.filter(b => b.visible).map(b => b.id);
       const scrollPosition = window.scrollY + 120;
 
       for (const section of sections) {
         const el = document.getElementById(section);
         if (el) {
-          const top = el.offsetTop;
+          const top = el.getBoundingClientRect().top + window.scrollY;
           const height = el.offsetHeight;
           if (scrollPosition >= top && scrollPosition < top + height) {
             setActiveSection(section);
@@ -47,16 +49,10 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [site.sections]);
 
-  const navLinks = [
-    { label: 'Experience', href: '#experience' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Architecture & Code', href: '#code' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Education & Certs', href: '#education' },
-    { label: 'Contact', href: '#contact' },
-  ];
+
+  const navLinks = site.navigation.filter(n => n.href.startsWith('#') ? site.sections.some(b => b.visible && b.id === n.href.slice(1)) : /^https?:\/\//i.test(n.href));
 
   return (
     <header
@@ -93,13 +89,13 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
         </a>
 
         {/* Desktop Nav Links */}
-        <nav id="desktop-nav-links" className="hidden lg:flex items-center gap-1">
+        <nav id="desktop-nav-links" className="hidden lg:flex items-center gap-1 overflow-x-auto min-w-0 max-w-[55%]">
           {navLinks.map((link) => {
             const sectionId = link.href.replace('#', '');
             const isActive = activeSection === sectionId;
             return (
               <a
-                key={link.label}
+                key={link.id}
                 id={`nav-link-${sectionId}`}
                 href={link.href}
                 className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-all duration-150 ${
@@ -123,7 +119,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
           {/* GitHub & LinkedIn quick icons */}
           <a
             id="nav-github-link"
-            href={contactData.githubUrl}
+            data-link-field="contactData:githubUrl" href={contactData.githubUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub Profile"
@@ -137,7 +133,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
           </a>
           <a
             id="nav-linkedin-link"
-            href={contactData.linkedinUrl}
+            data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn Profile"
@@ -202,7 +198,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
         >
           {navLinks.map((link) => (
             <a
-              key={link.label}
+              key={link.id}
               href={link.href}
               onClick={() => setMobileMenuOpen(false)}
               className={`block px-3 py-2 rounded-lg text-base font-medium transition-colors ${

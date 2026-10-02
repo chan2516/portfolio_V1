@@ -1,4 +1,5 @@
 export interface CandidateContact {
+  websiteUrl?: string;
   phone: string;
   email: string;
   location: string;
@@ -18,6 +19,8 @@ export interface ExperienceItem {
   id: string;
   role: string;
   company: string;
+  companyUrl?: string;
+  workUrl?: string;
   location: string;
   period: string;
   current: boolean;
