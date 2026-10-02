@@ -8,7 +8,7 @@ import {
   BadgeCheck,
   ExternalLink,
   BookOpen
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface EducationCertificationsProps {
@@ -24,7 +24,7 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
         {/* Section Header */}
         <div className="text-left max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-medium bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20 mb-3">
-            <GraduationCap className="w-3.5 h-3.5" />
+            <GraduationCap iconKey="EducationCertifications-GraduationCap-1" className="w-3.5 h-3.5" />
             <span>ACADEMIC & CREDENTIALS</span>
           </div>
           <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
@@ -40,7 +40,7 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
           {/* Education Column (7 cols) */}
           <div className="lg:col-span-7 space-y-6">
             <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-2">
-              <BookOpen className="w-4 h-4 text-indigo-500" />
+              <BookOpen iconKey="EducationCertifications-BookOpen-2" className="w-4 h-4 text-indigo-500" />
               <span>Higher Education</span>
             </h3>
 
@@ -68,11 +68,11 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
 
                   <div className="flex flex-col sm:items-end text-xs text-zinc-500 font-mono gap-1 shrink-0">
                     <span className="inline-flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-indigo-500" />
+                      <Calendar iconKey="EducationCertifications-Calendar-3" className="w-3.5 h-3.5 text-indigo-500" />
                       <span>{edu.period}</span>
                     </span>
                     <span className="inline-flex items-center gap-1">
-                      <MapPin className="w-3.5 h-3.5" />
+                      <MapPin iconKey="EducationCertifications-MapPin-4" className="w-3.5 h-3.5" />
                       <span>{edu.location}</span>
                     </span>
                   </div>
@@ -81,7 +81,7 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
                 <div className="space-y-2.5 pt-4 border-t border-zinc-200/80 dark:border-zinc-800/80">
                   {edu.highlights.map((item, idx) => (
                     <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
+                      <CheckCircle2 iconKey="EducationCertifications-CheckCircle2-5" className="w-4 h-4 text-indigo-500 shrink-0 mt-0.5" />
                       <span className={`${isDarkMode ? 'text-zinc-300' : 'text-zinc-700'} leading-relaxed`}>
                         {item}
                       </span>
@@ -95,7 +95,7 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
           {/* Certifications Column (5 cols) */}
           <div className="lg:col-span-5 space-y-6">
             <h3 className="text-xs font-mono uppercase tracking-wider text-zinc-400 flex items-center gap-2">
-              <Award className="w-4 h-4 text-emerald-500" />
+              <Award iconKey="EducationCertifications-Award-6" className="w-4 h-4 text-emerald-500" />
               <span>Professional Certifications</span>
             </h3>
 
@@ -112,7 +112,7 @@ export const EducationCertifications: React.FC<EducationCertificationsProps> = (
                   <div className="flex items-start justify-between gap-3 mb-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <BadgeCheck className="w-4 h-4 text-emerald-500 shrink-0" />
+                        <BadgeCheck iconKey="EducationCertifications-BadgeCheck-7" className="w-4 h-4 text-emerald-500 shrink-0" />
                         <span className="text-xs font-mono text-zinc-500">
                           {cert.issuer} • {cert.year}
                         </span>

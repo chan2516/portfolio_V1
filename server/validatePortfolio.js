@@ -1,3 +1,4 @@
+import { iconNames } from './iconNames.js';
 export function validatePortfolio(value) {
   const types = ['navbar', 'hero', 'experience', 'projects', 'code', 'skills', 'education', 'contact', 'footer', 'custom', 'blog'];
   if (!value || value.version !== 1 || !value.theme || !Array.isArray(value.sections) || value.sections.length > 100 || !value.content) return false;
@@ -13,6 +14,13 @@ export function validatePortfolio(value) {
     const i = value.icons;
     if (!i || typeof i.color !== 'string' || (i.color && !/^#[0-9a-f]{6}$/i.test(i.color)) || !Number.isFinite(i.size) || i.size < 50 || i.size > 150 || !Number.isFinite(i.strokeWidth) || i.strokeWidth < 1 || i.strokeWidth > 3) return false;
   }
+  if (value.iconOverrides !== undefined) {
+    if (!value.iconOverrides || typeof value.iconOverrides !== 'object' || Array.isArray(value.iconOverrides) || Object.keys(value.iconOverrides).length > 2000) return false;
+    for (const [key,i] of Object.entries(value.iconOverrides)) {
+      if (!/^[\w:-]{1,200}$/.test(key) || !i || !iconNames.includes(i.name) || typeof i.color !== 'string' || (i.color && !/^#[0-9a-f]{6}$/i.test(i.color)) || !Number.isFinite(i.size) || i.size < 50 || i.size > 150 || !Number.isFinite(i.strokeWidth) || i.strokeWidth < 1 || i.strokeWidth > 3) return false;
+    }
+  }
+  if (value.content.skillGroups?.some(g => !g || ['featured','visible','showCheckmarks'].some(k => g[k] !== undefined && typeof g[k] !== 'boolean'))) return false;
   const t = value.theme;
   if (![t.accent, t.background, t.text].every(c => /^#[0-9a-f]{6}$/i.test(c))) return false;
   if (typeof t.dark !== 'boolean' || typeof t.font !== 'string' || t.font.length > 100 || !Number.isFinite(t.radius) || t.radius < 0 || t.radius > 40 || !Number.isFinite(t.width) || t.width < 800 || t.width > 1600) return false;
@@ -49,6 +57,7 @@ export function validatePortfolio(value) {
   return value.sections.every(b => {
     if (!b || typeof b.id !== 'string' || !b.id || ids.has(b.id) || !types.includes(b.type)) return false;
     ids.add(b.id);
+    if (b.tags !== undefined && (!Array.isArray(b.tags) || b.tags.length > 200 || b.tags.some(t => typeof t !== 'string' || t.length > 200))) return false;
     if (b.posts !== undefined && (!Array.isArray(b.posts) || b.posts.length > 200 || new Set(b.posts.map(p => p?.id)).size !== b.posts.length || b.posts.some(p => !p || !/^[\w-]{1,100}$/.test(p.id) || ['title','body','date','link'].some(k => typeof p[k] !== 'string' || p[k].length > (k === 'body' ? 50000 : 2000))))) return false;
     return ['label', 'title', 'body', 'image', 'link', 'background'].every(k => typeof b[k] === 'string') && typeof b.visible === 'boolean' && ['left', 'center'].includes(b.align) && Number.isFinite(b.padding) && b.padding >= 0 && b.padding <= 120 && (!b.background || /^#[0-9a-f]{6}$/i.test(b.background));
   }) && ['candidateInfo', 'contactData'].every(k => value.content[k] && typeof value.content[k] === 'object' && !Array.isArray(value.content[k])) && ['candidateStats', 'skillGroups', 'educationData', 'certificationsData', 'sampleCodeSnippets'].every(k => Array.isArray(value.content[k]));

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUp, Github, Linkedin, Mail, Phone, Terminal } from 'lucide-react';
+import { ArrowUp, Github, Linkedin, Mail, Phone, Terminal } from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface FooterProps {
@@ -22,7 +22,7 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
           {/* Brand & Title */}
           <div className="flex items-center gap-3 text-left">
             <div className="w-9 h-9 rounded-xl bg-indigo-600/10 dark:bg-indigo-500/20 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-mono font-bold text-sm">
-              <Terminal className="w-4 h-4" />
+              <Terminal iconKey="Footer-Terminal-1" className="w-4 h-4" />
             </div>
             <div>
               <div className="text-sm font-bold text-zinc-900 dark:text-white">
@@ -54,7 +54,7 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
               className="p-2 rounded-lg hover:text-zinc-900 dark:hover:text-white transition-colors"
               aria-label="GitHub"
             >
-              <Github className="w-4 h-4" />
+              <Github iconKey="Footer-Github-2" className="w-4 h-4" />
             </a>
             <a
               data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
@@ -63,14 +63,14 @@ export const Footer: React.FC<FooterProps> = ({ isDarkMode }) => {
               className="p-2 rounded-lg hover:text-blue-500 transition-colors"
               aria-label="LinkedIn"
             >
-              <Linkedin className="w-4 h-4" />
+              <Linkedin iconKey="Footer-Linkedin-3" className="w-4 h-4" />
             </a>
             <button
               onClick={scrollToTop}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-mono border border-zinc-300 dark:border-zinc-800 hover:bg-zinc-200 dark:hover:bg-zinc-800 text-zinc-700 dark:text-zinc-300 transition-colors ml-2"
               title="Scroll to top of page"
             >
-              <ArrowUp className="w-3.5 h-3.5" />
+              <ArrowUp iconKey="Footer-ArrowUp-4" className="w-3.5 h-3.5" />
               <span>Top</span>
             </button>
           </div>

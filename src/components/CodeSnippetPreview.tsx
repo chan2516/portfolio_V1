@@ -8,7 +8,7 @@ import {
   CheckCircle2, 
   ShieldAlert, 
   Layers
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface CodeSnippetPreviewProps {
@@ -38,7 +38,7 @@ export const CodeSnippetPreview: React.FC<CodeSnippetPreviewProps> = ({ isDarkMo
         {/* Section Title */}
         <div className="text-left max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-3">
-            <Code2 className="w-3.5 h-3.5" />
+            <Code2 iconKey="CodeSnippetPreview-Code2-1" className="w-3.5 h-3.5" />
             <span>SOURCE ARCHITECTURE PREVIEW</span>
           </div>
           <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
@@ -72,7 +72,7 @@ export const CodeSnippetPreview: React.FC<CodeSnippetPreviewProps> = ({ isDarkMo
                       : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/60'
                   }`}
                 >
-                  <FileCode className="w-3.5 h-3.5" />
+                  <FileCode iconKey="CodeSnippetPreview-FileCode-2" className="w-3.5 h-3.5" />
                   <span>{snippet.filename}</span>
                 </button>
               ))}
@@ -89,12 +89,12 @@ export const CodeSnippetPreview: React.FC<CodeSnippetPreviewProps> = ({ isDarkMo
               >
                 {copied ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <Check iconKey="CodeSnippetPreview-Check-3" className="w-3.5 h-3.5 text-emerald-400" />
                     <span className="text-emerald-400">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5" />
+                    <Copy iconKey="CodeSnippetPreview-Copy-4" className="w-3.5 h-3.5" />
                     <span>Copy Code</span>
                   </>
                 )}
@@ -104,7 +104,7 @@ export const CodeSnippetPreview: React.FC<CodeSnippetPreviewProps> = ({ isDarkMo
 
           {/* Snippet Context Bar */}
           <div className="px-5 py-3 bg-zinc-900/60 border-b border-zinc-800/80 flex items-start gap-2.5 text-xs text-zinc-300">
-            <Terminal className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
+            <Terminal iconKey="CodeSnippetPreview-Terminal-5" className="w-4 h-4 text-indigo-400 shrink-0 mt-0.5" />
             <span className="leading-relaxed">
               <strong className="text-white">{currentSnippet.title}:</strong> {currentSnippet.description}
             </span>

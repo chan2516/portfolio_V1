@@ -17,7 +17,7 @@ import {
   Server, 
   Database,
   ExternalLink
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface HeroProps {
@@ -89,7 +89,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
               {/* Location & Quick Contact Pills */}
               <div className="flex flex-wrap items-center gap-3 pt-1 text-xs sm:text-sm text-zinc-600 dark:text-zinc-400">
                 <span className="inline-flex items-center gap-1.5">
-                  <MapPin className="w-4 h-4 text-rose-500" />
+                  <MapPin iconKey="Hero-MapPin-1" className="w-4 h-4 text-rose-500" />
                   <span>{contactData.location}</span>
                 </span>
                 <span className="text-zinc-300 dark:text-zinc-700">•</span>
@@ -98,9 +98,9 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   className="inline-flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                   title="Click to copy phone number"
                 >
-                  <Phone className="w-3.5 h-3.5 text-indigo-500" />
+                  <Phone iconKey="Hero-Phone-2" className="w-3.5 h-3.5 text-indigo-500" />
                   <span>{contactData.phone}</span>
-                  {copiedPhone ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 opacity-50" />}
+                  {copiedPhone ? <Check iconKey="Hero-Check-3" className="w-3 h-3 text-emerald-500" /> : <Copy iconKey="Hero-Copy-4" className="w-3 h-3 opacity-50" />}
                 </button>
                 <span className="text-zinc-300 dark:text-zinc-700">•</span>
                 <button
@@ -108,9 +108,9 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   className="inline-flex items-center gap-1.5 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors"
                   title="Click to copy email address"
                 >
-                  <Mail className="w-3.5 h-3.5 text-blue-500" />
+                  <Mail iconKey="Hero-Mail-5" className="w-3.5 h-3.5 text-blue-500" />
                   <span className="underline decoration-dotted underline-offset-2">{contactData.email}</span>
-                  {copiedEmail ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3 opacity-50" />}
+                  {copiedEmail ? <Check iconKey="Hero-Check-6" className="w-3 h-3 text-emerald-500" /> : <Copy iconKey="Hero-Copy-7" className="w-3 h-3 opacity-50" />}
                 </button>
               </div>
             </div>
@@ -128,7 +128,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white bg-indigo-600 hover:bg-indigo-500 shadow-md shadow-indigo-600/25 transition-all duration-150"
               >
                 <span>View Projects</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight iconKey="Hero-ArrowRight-8" className="w-4 h-4" />
               </a>
 
               <button
@@ -140,7 +140,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                     : 'border-zinc-300 bg-white hover:bg-zinc-50 text-zinc-800 hover:border-zinc-400 shadow-xs'
                 }`}
               >
-                <FileText className="w-4 h-4 text-indigo-500" />
+                <FileText iconKey="Hero-FileText-9" className="w-4 h-4 text-indigo-500" />
                 <span>View ATS Resume</span>
               </button>
 
@@ -153,7 +153,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                     : 'border-zinc-200 bg-transparent hover:bg-zinc-100 text-zinc-700'
                 }`}
               >
-                <Mail className="w-4 h-4 text-emerald-500" />
+                <Mail iconKey="Hero-Mail-10" className="w-4 h-4 text-emerald-500" />
                 <span>Contact Me</span>
               </a>
 
@@ -171,7 +171,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   }`}
                   title="View GitHub (Chan2516)"
                 >
-                  <Github className="w-4 h-4" />
+                  <Github iconKey="Hero-Github-11" className="w-4 h-4" />
                 </a>
                 <a
                   data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
@@ -185,7 +185,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
                   }`}
                   title="View LinkedIn (chan2004)"
                 >
-                  <Linkedin className="w-4 h-4 text-blue-500" />
+                  <Linkedin iconKey="Hero-Linkedin-12" className="w-4 h-4 text-blue-500" />
                 </a>
               </div>
             </div>
@@ -193,7 +193,7 @@ export const Hero: React.FC<HeroProps> = ({ isDarkMode, onOpenResume }) => {
             {/* Toast feedback for copy action */}
             {(copiedEmail || copiedPhone) && (
               <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-emerald-500/15 border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 animate-in fade-in slide-in-from-bottom-1">
-                <Check className="w-3.5 h-3.5" />
+                <Check iconKey="Hero-Check-13" className="w-3.5 h-3.5" />
                 <span>{copiedEmail ? 'Email address copied to clipboard!' : 'Phone number copied to clipboard!'}</span>
               </div>
             )}

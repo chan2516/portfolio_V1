@@ -11,7 +11,7 @@ import {
   Code2,
   Terminal,
   ExternalLink
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { SiteContext, usePortfolioData } from '../siteConfig';
 
 interface NavbarProps {
@@ -74,7 +74,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 via-blue-600 to-emerald-500 p-0.5 shadow-md shadow-indigo-500/20">
             <div className={`w-full h-full rounded-[10px] flex items-center justify-center transition-colors ${isDarkMode ? 'bg-zinc-950' : 'bg-white'}`}>
-              <Terminal className="w-5 h-5 text-indigo-500 group-hover:text-indigo-400 transition-colors" />
+              <Terminal iconKey="Navbar-Terminal-1" className="w-5 h-5 text-indigo-500 group-hover:text-indigo-400 transition-colors" />
             </div>
           </div>
           <div>
@@ -129,7 +129,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
                 : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
-            <Github className="w-4.5 h-4.5" />
+            <Github iconKey="Navbar-Github-2" className="w-4.5 h-4.5" />
           </a>
           <a
             id="nav-linkedin-link"
@@ -143,7 +143,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
                 : 'text-zinc-600 hover:text-zinc-900 hover:bg-zinc-100'
             }`}
           >
-            <Linkedin className="w-4.5 h-4.5" />
+            <Linkedin iconKey="Navbar-Linkedin-3" className="w-4.5 h-4.5" />
           </a>
 
           {/* Theme Switcher */}
@@ -157,7 +157,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
                 : 'text-zinc-700 hover:bg-zinc-100'
             }`}
           >
-            {isDarkMode ? <Sun className="w-4.5 h-4.5" /> : <Moon className="w-4.5 h-4.5" />}
+            {isDarkMode ? <Sun iconKey="Navbar-Sun-4" className="w-4.5 h-4.5" /> : <Moon iconKey="Navbar-Moon-5" className="w-4.5 h-4.5" />}
           </button>
 
           {/* Resume Modal Trigger */}
@@ -166,7 +166,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
             onClick={onOpenResume}
             className="hidden sm:inline-flex items-center gap-2 px-3.5 py-1.5 rounded-lg text-sm font-medium bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-500 hover:to-blue-500 text-white shadow-sm shadow-indigo-500/25 transition-all"
           >
-            <FileText className="w-4 h-4" />
+            <FileText iconKey="Navbar-FileText-6" className="w-4 h-4" />
             <span>Resume</span>
           </button>
 
@@ -181,7 +181,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
                 : 'text-zinc-700 hover:bg-zinc-100'
             }`}
           >
-            {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            {mobileMenuOpen ? <X iconKey="Navbar-X-7" className="w-6 h-6" /> : <Menu iconKey="Navbar-Menu-8" className="w-6 h-6" />}
           </button>
         </div>
       </div>
@@ -218,7 +218,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
               }}
               className="w-full inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-lg text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-500 transition-colors"
             >
-              <FileText className="w-4 h-4" />
+              <FileText iconKey="Navbar-FileText-9" className="w-4 h-4" />
               <span>View & Print Resume</span>
             </button>
             <a
@@ -229,7 +229,7 @@ export const Navbar: React.FC<NavbarProps> = ({ isDarkMode, toggleDarkMode, onOp
                   : 'border-zinc-300 text-zinc-700 hover:bg-zinc-50'
               }`}
             >
-              <Mail className="w-4 h-4" />
+              <Mail iconKey="Navbar-Mail-10" className="w-4 h-4" />
               <span>Email Chandan Directly</span>
             </a>
           </div>

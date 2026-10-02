@@ -9,7 +9,7 @@ import {
   Check, 
   Send, 
   ExternalLink,
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface ContactSectionProps {
@@ -103,7 +103,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
         {/* Section Header */}
         <div className="text-left max-w-3xl mb-12">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-medium bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 mb-3">
-            <Mail className="w-3.5 h-3.5" />
+            <Mail iconKey="ContactSection-Mail-1" className="w-3.5 h-3.5" />
             <span>GET IN TOUCH</span>
           </div>
           <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
@@ -126,7 +126,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-blue-500/15 text-blue-500 flex items-center justify-center">
-                    <Mail className="w-5 h-5" />
+                    <Mail iconKey="ContactSection-Mail-2" className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs text-zinc-500 font-mono">Email Address</div>
@@ -143,7 +143,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                   className="p-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
                   title="Copy email to clipboard"
                 >
-                  {copiedEmail ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                  {copiedEmail ? <Check iconKey="ContactSection-Check-3" className="w-4 h-4 text-emerald-500" /> : <Copy iconKey="ContactSection-Copy-4" className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -155,7 +155,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
               <div className="flex items-start justify-between gap-3">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl bg-indigo-500/15 text-indigo-500 flex items-center justify-center">
-                    <Phone className="w-5 h-5" />
+                    <Phone iconKey="ContactSection-Phone-5" className="w-5 h-5" />
                   </div>
                   <div>
                     <div className="text-xs text-zinc-500 font-mono">Phone / WhatsApp</div>
@@ -172,7 +172,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                   className="p-2 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800 transition-colors"
                   title="Copy phone to clipboard"
                 >
-                  {copiedPhone ? <Check className="w-4 h-4 text-emerald-500" /> : <Copy className="w-4 h-4" />}
+                  {copiedPhone ? <Check iconKey="ContactSection-Check-6" className="w-4 h-4 text-emerald-500" /> : <Copy iconKey="ContactSection-Copy-7" className="w-4 h-4" />}
                 </button>
               </div>
             </div>
@@ -183,7 +183,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
             }`}>
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-rose-500/15 text-rose-500 flex items-center justify-center">
-                  <MapPin className="w-5 h-5" />
+                  <MapPin iconKey="ContactSection-MapPin-8" className="w-5 h-5" />
                 </div>
                 <div>
                   <div className="text-xs text-zinc-500 font-mono">Location</div>
@@ -196,7 +196,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
 
             {/* Social Links Cards */}
             <div className="grid grid-cols-2 gap-3 pt-1">
-              {contactData.websiteUrl && <a data-link-field="contactData:websiteUrl" href={contactData.websiteUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 inline-flex items-center gap-2 rounded-xl border border-indigo-500/30 p-4 font-semibold text-indigo-500">Website <ExternalLink size={16} /></a>}
+              {contactData.websiteUrl && <a data-link-field="contactData:websiteUrl" href={contactData.websiteUrl} target="_blank" rel="noopener noreferrer" className="col-span-2 inline-flex items-center gap-2 rounded-xl border border-indigo-500/30 p-4 font-semibold text-indigo-500">Website <ExternalLink iconKey="ContactSection-ExternalLink-9" size={16} /></a>}
               <a
                 data-link-field="contactData:linkedinUrl" href={contactData.linkedinUrl}
                 target="_blank"
@@ -207,7 +207,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                     : 'bg-white border-zinc-200 hover:border-zinc-300 text-zinc-800'
                 }`}
               >
-                <Linkedin className="w-5 h-5 text-blue-500 shrink-0" />
+                <Linkedin iconKey="ContactSection-Linkedin-10" className="w-5 h-5 text-blue-500 shrink-0" />
                 <div className="min-w-0">
                   <div className="text-xs text-zinc-500">LinkedIn</div>
                   <div className="text-xs font-semibold truncate font-mono">chan2004</div>
@@ -224,7 +224,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                     : 'bg-white border-zinc-200 hover:border-zinc-300 text-zinc-800'
                 }`}
               >
-                <Github className="w-5 h-5 shrink-0 text-zinc-400" />
+                <Github iconKey="ContactSection-Github-11" className="w-5 h-5 shrink-0 text-zinc-400" />
                 <div className="min-w-0">
                   <div className="text-xs text-zinc-500">GitHub</div>
                   <div className="text-xs font-semibold truncate font-mono">Chan2516</div>
@@ -251,7 +251,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
               {formStatus === 'success' ? (
                 <div className="p-8 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-center space-y-3 animate-in fade-in">
                   <div className="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center mx-auto">
-                    <Check className="w-6 h-6" />
+                    <Check iconKey="ContactSection-Check-12" className="w-6 h-6" />
                   </div>
                   <h4 className="text-lg font-bold text-zinc-900 dark:text-white">Message Sent Successfully!</h4>
                   <p className="text-sm text-zinc-600 dark:text-zinc-300">
@@ -354,7 +354,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                         <span>Sending message...</span>
                       ) : (
                         <>
-                          <Send className="w-4 h-4" />
+                          <Send iconKey="ContactSection-Send-13" className="w-4 h-4" />
                           <span>Send Message</span>
                         </>
                       )}
@@ -365,7 +365,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ isDarkMode }) =>
                       className="text-xs text-zinc-500 hover:text-indigo-500 dark:hover:text-indigo-400 underline underline-offset-4 inline-flex items-center gap-1"
                     >
                       <span>Or compose in your email client</span>
-                      <ExternalLink className="w-3 h-3" />
+                      <ExternalLink iconKey="ContactSection-ExternalLink-14" className="w-3 h-3" />
                     </a>
                   </div>
                   {formStatus === 'error' && (

@@ -57,6 +57,8 @@ export interface SkillGroup {
   description: string;
   skills: string[];
   featured?: boolean;
+  visible?: boolean;
+  showCheckmarks?: boolean;
 }
 
 export interface EducationItem {

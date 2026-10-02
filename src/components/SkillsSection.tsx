@@ -13,7 +13,7 @@ import {
   Cpu,
   ShieldCheck,
   TestTube
-} from 'lucide-react';
+} from '../portfolioIcons';
 import { usePortfolioData } from '../siteConfig';
 
 interface SkillsSectionProps {
@@ -36,6 +36,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
 
   const filteredGroups = useMemo(() => {
     return skillGroups.filter((group) => {
+      if (group.visible === false) return false;
       // Category filter match
       if (activeCategory === 'backend') {
         if (!['languages', 'core-java', 'backend'].includes(group.id)) return false;
@@ -68,7 +69,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <div className="text-left max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md text-xs font-mono font-medium bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20 mb-3">
-              <Cpu className="w-3.5 h-3.5" />
+              <Cpu iconKey="SkillsSection-Cpu-1" className="w-3.5 h-3.5" />
               <span>TECHNICAL MATRIX</span>
             </div>
             <h2 className={`text-3xl sm:text-4xl font-extrabold tracking-tight ${isDarkMode ? 'text-white' : 'text-zinc-950'}`}>
@@ -81,7 +82,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
 
           {/* Search Bar */}
           <div className="relative w-full md:w-72">
-            <Search className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+            <Search iconKey="SkillsSection-Search-2" className="w-4 h-4 text-zinc-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search skill (e.g., Docker, Spring, SQL)..."
@@ -98,7 +99,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
                 onClick={() => setSearchQuery('')}
                 className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200"
               >
-                <X className="w-4 h-4" />
+                <X iconKey="SkillsSection-X-3" className="w-4 h-4" />
               </button>
             )}
           </div>
@@ -165,7 +166,7 @@ export const SkillsSection: React.FC<SkillsSectionProps> = ({ isDarkMode }) => {
                           : 'bg-zinc-100 text-zinc-800 border border-zinc-200'
                       }`}
                     >
-                      {skill}
+                      {group.showCheckmarks && <Check className="inline-block w-3 h-3 mr-1" />} {skill}
                     </span>
                   );
                 })}

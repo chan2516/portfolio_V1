@@ -140,3 +140,9 @@ Deploy the complete release, not just dist: the image now includes Express, SQLi
 Manual deployment: place docker-compose.prod.yml and Caddyfile in /opt/portfolio, set DOCKERHUB_USERNAME and IMAGE_TAG to the desired commit tag, then run `docker compose -f docker-compose.prod.yml pull` and `docker compose -f docker-compose.prod.yml up -d --wait --wait-timeout 120`. Inspect `docker compose -f docker-compose.prod.yml logs --tail=100` on failure. Never use `down -v` on production because it deletes persistent data.
 
 Local accounts and published edits are not included in the Docker image. The old frontend-only stack has no application database; first deployment creates a fresh production database. Create the production owner at /admin/login over HTTPS. To transfer local data instead, stop writes, back up database.sqlite and public/uploads together, and restore them into the production volume at /data/database.sqlite and /data/uploads (owner UID/GID 1000:1000) before starting. Back up existing production data first; never overwrite a live database. HTTPS is required for production login cookies. Local Compose on port 8080 is for public-page/API health testing.
+
+### Icons, skills, and tags
+
+In Website Edit mode, click a Lucide icon to open Icons on the right. Change its shape, color (hex), size (50–150%), or stroke (1–3), or reset it. Each project has independent icon overrides. Design controls retain shared defaults. The contact phone background preserves its translucent color so the icon remains visible.
+
+Content → skill Groups exposes Core Domain, Visible skill group, and Show checkmarks on skill tags for every group, even when older records omit these fields. Edit, remove, or add skills/technology/features/highlights in their lists, including empty lists. Structure → section properties → tags lets any section have additional tag badges. Publish saves these settings to the database.

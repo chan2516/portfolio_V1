@@ -38,7 +38,7 @@
 .portfolio-canvas [data-editor-selected] { outline: 2px solid #a78bfa; outline-offset: 4px; }
 .portfolio-canvas .max-w-7xl { max-width: var(--site-width); }
 .portfolio-canvas [class*="rounded-xl"], .portfolio-canvas [class*="rounded-2xl"], .portfolio-canvas [class*="rounded-lg"] { border-radius: var(--site-radius); }
-.portfolio-canvas [class*="bg-indigo-6"], .portfolio-canvas [class*="bg-indigo-5"] { background-color: var(--site-accent); }
+.portfolio-canvas .bg-indigo-600, .portfolio-canvas .bg-indigo-500 { background-color: var(--site-accent); }
 .portfolio-canvas [class*="text-indigo-"] { color: var(--site-accent); }
 .portfolio-canvas header { position: sticky; top: 0; }
 .portfolio-canvas [class*="text-zinc-100"], .portfolio-canvas [class*="text-zinc-900"], .portfolio-canvas [class*="text-zinc-950"], .portfolio-canvas .text-white { color: var(--site-text); }
