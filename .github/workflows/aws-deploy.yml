@@ -47,6 +47,23 @@ jobs:
         docker build --pull \
           --tag "$IMAGE_NAME:${{ github.sha }}" \
           --tag "$IMAGE_NAME:latest" .
+        docker volume create portfolio-ci-data
+        docker run --rm --user 0:0 -v portfolio-ci-data:/data "$IMAGE_NAME:${{ github.sha }}" node server/prepare-storage.js
+        docker run -d --name portfolio-ci -v portfolio-ci-data:/data "$IMAGE_NAME:${{ github.sha }}"
+        ready=false
+        for attempt in $(seq 1 90); do
+          state=$(docker inspect --format '{{.State.Health.Status}}' portfolio-ci)
+          if [ "$state" = healthy ]; then ready=true; break; fi
+          if [ "$state" = unhealthy ]; then break; fi
+          sleep 2
+        done
+        if [ "$ready" != true ]; then
+          docker logs portfolio-ci
+          docker inspect --format '{{json .State}}' portfolio-ci
+          exit 1
+        fi
+        docker rm -f portfolio-ci
+        docker volume rm portfolio-ci-data
         docker push "$IMAGE_NAME:${{ github.sha }}"
         docker push "$IMAGE_NAME:latest"
 
@@ -59,7 +76,7 @@ jobs:
       env:
         SSHPASS: ${{ secrets.SERVER_PASS }}
       run: |
-        tar -czf - docker-compose.prod.yml Caddyfile | sshpass -e ssh \
+        tar -czf - docker-compose.prod.yml Caddyfile scripts/deploy.sh | sshpass -e ssh \
           -o StrictHostKeyChecking=accept-new \
           -o PreferredAuthentications=password \
           -o PubkeyAuthentication=no \
@@ -77,4 +94,4 @@ jobs:
           -o PreferredAuthentications=password \
           -o PubkeyAuthentication=no \
           "${{ secrets.SERVER_USER }}@${{ secrets.IP }}" \
-          "set -eu; export IMAGE_TAG='${{ github.sha }}' DOCKERHUB_USERNAME='$DOCKERHUB_USERNAME'; cd '$DEPLOY_DIR'; docker login --username \"\$DOCKERHUB_USERNAME\" --password-stdin; docker compose config --quiet; docker compose pull; docker compose up -d --wait --wait-timeout 120 --remove-orphans; docker image prune -f"
+          "set -eu; export IMAGE_TAG='${{ github.sha }}' DOCKERHUB_USERNAME='$DOCKERHUB_USERNAME'; cd '$DEPLOY_DIR'; docker login --username \"\$DOCKERHUB_USERNAME\" --password-stdin; sh scripts/deploy.sh"

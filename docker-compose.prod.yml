@@ -1,8 +1,18 @@
 services:
+  storage-init:
+    image: ${DOCKERHUB_USERNAME:?Set DOCKERHUB_USERNAME}/portfolio:${IMAGE_TAG:?Set IMAGE_TAG}
+    user: "0:0"
+    restart: "no"
+    command: ["node", "server/prepare-storage.js"]
+    volumes:
+      - portfolio_data:/data
   portfolio:
     image: ${DOCKERHUB_USERNAME:?Set DOCKERHUB_USERNAME}/portfolio:${IMAGE_TAG:?Set IMAGE_TAG}
     container_name: portfolio
     restart: unless-stopped
+    depends_on:
+      storage-init:
+        condition: service_completed_successfully
     environment:
       NODE_ENV: production
       PORT: 5000
