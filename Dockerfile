@@ -7,11 +7,11 @@ RUN npm ci
 COPY . .
 RUN npm run lint && npm run build
 
-FROM node:22-bookworm-slim AS runtime
+FROM node:22-bookworm AS runtime
 WORKDIR /app
 ENV NODE_ENV=production PORT=5000 DB_STORAGE=/data/database.sqlite UPLOAD_DIR=/data/uploads
 COPY package*.json ./
-RUN npm ci --omit=dev && npm cache clean --force && mkdir -p /data/uploads && chown -R node:node /data
+RUN npm ci --omit=dev --build-from-source && npm cache clean --force && mkdir -p /data/uploads && chown -R node:node /data
 COPY --from=build /app/server ./server
 COPY --from=build /app/dist ./dist
 USER node
