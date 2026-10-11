@@ -1,148 +1,214 @@
-# Chandan Vishwakarma — Portfolio
+# DevFolio Pro
 
-A responsive Vite/React portfolio for a Java software engineer and application-support professional.
+**A full-stack developer portfolio with a visual editor, an editable resume, and an authenticated administration console.**
 
-## Run Locally
+DevFolio Pro combines a public portfolio with tools to manage its content and appearance. Visitors can explore projects, skills, experience, and education, while administrators can update content, customize the design, upload media, and publish changes through a browser.
 
-**Prerequisites:**  Node.js
+[Repository](https://github.com/chan2516/portfolio_V1) · [Detailed administration and deployment guide](docs/ADMIN_AND_DEPLOYMENT.md)
 
+## Features
 
-1. Install dependencies:
-   `npm install`
-2. Copy `.env.example` to `.env.local` and set `VITE_CONTACT_FORM_ENDPOINT`
-3. Run the app:
-   `npm run dev`
+- **Responsive portfolio:** profile, projects, skills, experience, education, certifications, code examples, and contact information.
+- **Visual editing studio:** desktop, tablet, and mobile previews, zoom controls, edit/interact modes, and undo/redo.
+- **Design customization:** colors, typography, spacing, section order and visibility, navigation, icons, and custom text, image, link, and blog sections.
+- **Editable resume:** shared profile data, independent element formatting, and browser-based Print / Save as PDF.
+- **Publishing:** SQLite-backed configuration with version checks to prevent stale drafts from overwriting another administrator's publication.
+- **Account management:** owner/admin roles, salted scrypt password hashes, database-backed sessions, and session revocation after password resets or account disabling.
+- **Media library:** reusable image/PDF uploads, a 10 MB limit, file-signature validation, and protection against deleting files referenced by saved content.
+- **Contact form:** configurable JSON form endpoint with a pre-filled email fallback when submission is unavailable.
+- **Deployment automation:** multi-stage Docker builds, persistent storage, API health checks, Caddy HTTPS, and GitHub Actions.
 
-## Contact form
+## Technology stack
 
-## Visual portfolio admin
+| Layer | Technologies |
+| --- | --- |
+| Frontend | React 19, TypeScript, Vite, React Router |
+| Interface | Tailwind CSS 4, Motion, Lucide React |
+| Backend | Node.js, Express, Multer |
+| Database | SQLite, Sequelize |
+| Authentication | Node.js crypto, HTTP-only session cookies |
+| Testing | Jest, Supertest, Node.js test runner |
+| Deployment | Docker, Docker Compose, Caddy, GitHub Actions, Docker Hub |
 
-Run `npm run dev`, then open `/admin`. The Visual Studio uses the same React portfolio renderer in an isolated iframe, with desktop, tablet, and mobile viewport widths.
+## Architecture
 
-The console has workspace navigation, a document toolbar, structure/design/content controls, a central canvas, and a text inspector. In **Edit** mode, click a text element to change its font, size, color, highlight, weight, italics, underline, alignment, line height, or letter spacing. Plain text elements also support wording overrides. **Interact** mode lets you test the preview's menus and controls. Undo and redo apply to editor changes.
+```text
+Development
+Browser → Vite (:3000) → /api and /uploads proxy → Express (:5000)
+                                                    ├── SQLite
+                                                    └── Uploaded files
 
-Text formatting applies to a whole selected element, not arbitrary character ranges within a sentence. Overrides use paths within each section, so editing the component markup or changing positions inside dynamic lists can require reapplying their formatting. Projects and experience are edited under Content in the main editor. Formatting is stored with the portfolio configuration and rendered on the public page after publishing.
-
-- Layers: select sections by clicking the preview; drag or use arrows to reorder; hide sections; adjust section background and extra spacing; add and delete text/image/link sections.
-- Design: change global accent, background, foreground, font, content width, corner radius, and dark component appearance.
-- Content: edit profile, contacts, statistics, skills, education, certifications, code examples, projects, and experience in the main editor. On initial load, existing projects and experience are loaded from their API if the published design does not contain them. Publishing stores these collections with the design; the public renderer then uses those published collections. Legacy manager URLs redirect to the main editor.
-- Changes remain in the editor until **Publish changes** stores the design in SQLite at `/api/settings/portfolio`. Undo keeps the last 40 editor changes. Discard restores the published configuration. The public page reloads published data when it regains focus.
-
-The **Website / Resume** document switch keeps both documents in one editor. The resume is an editable HTML document sharing profile and collection data with the portfolio. Resume formatting is independent of website formatting. Resume sections can be reordered, removed, and restored under Structure. **Print / Save as PDF** opens the browser print dialog for the current resume draft. The public resume viewer and `/resume` use the published design; the original downloadable PDF remains available separately.
-
-Select any text element, then use **Remove text element** to hide it, or use position and spacing controls to offset it. Restore removed text under Structure or use Undo. Offsets do not move surrounding content out of the way, so verify responsive previews for overlap.
-
-This is a component-based editor, not an unrestricted drawing canvas. New interactive functionality requires registering a React component. Existing component-specific internal layouts are not all independently editable. Editor drafts are in memory and are lost on reload; the browser warns about unpublished changes.
-
-Production runs the authenticated Express API and built frontend together behind Caddy HTTPS. Database, sessions, and uploads persist in the portfolio_data volume. Vite proxies the API locally.
-
-Validation: `npm run lint`, `npm run build`, and `node --test server/tests/portfolio-config.test.js`.
-
-### Images and local media storage
-
-In **Content**, expand **candidate Info** to replace the profile image, or **projects Data → a project** to attach its image. For summary or other custom blocks, select the section under **Structure** and use **Section image**. Click an existing image in the preview to open its image inspector directly.
-
-**Choose saved / upload image** opens the reusable media library. **Upload new** saves a file locally; click its thumbnail to attach it to the current field. Set alt text, width, height, cover/contain/fill, crop focus, alignment, and corner radius. Width `0` fills the available container, and height `0` preserves the image proportions. Removing an image only removes its association from that section. Publish saves these image choices and presentation settings with the portfolio design.
-
-Uploads accept PNG, JPEG, WebP, GIF, AVIF, and PDF files, up to 10 MB. Image fields show images only; PDFs can be stored and opened from Media library. Existing files in `public/uploads` are automatically listed. Files and their name metadata live in `public/uploads`; SQLite holds the published design. This uses the local filesystem, not browser `localStorage`, so media survives browser refreshes and can be reused across sessions. Both local data locations are ignored by Git. Back them up together. For container deployment, mount persistent storage and serve `/uploads` through the API. `UPLOAD_DIR` can override the default upload directory.
-
-### Development port conflicts
-
-`EADDRINUSE` means another process already listens on the requested port. `npm run dev:backend` now checks `/api/health` and reuses an existing portfolio API on port 5000 instead of starting a duplicate. Nodemon watches only the server directory, so uploads and README edits do not restart the backend. Run one `npm run dev` session for normal development. If an older crashed nodemon session remains open, stop that session with Ctrl+C and start it again to use the updated launcher.
-
-For another API port, set `PORT` for the backend and `VITE_API_TARGET` for Vite to the matching origin (for example `http://localhost:5001`). An unrelated service on the chosen port is reported rather than terminated.
-
-Media integration checks: `node --test server/tests/media.test.js server/tests/portfolio-config.test.js`.
-
-The form posts JSON to `VITE_CONTACT_FORM_ENDPOINT`. A simple setup is to create a Formspree form using `chandanv345459@gmail.com`, verify the email address, and place the generated endpoint in `.env.local` for local development and in the production build environment. If the endpoint is missing or unavailable, the UI offers a pre-filled `mailto:` fallback and never displays a false success message.
-
-## Deploy with Docker Hub and GitHub Actions
-
-The workflow in `.github/workflows/aws-deploy.yml` builds the image, pushes both a commit tag and `latest` to Docker Hub, then updates the server with the commit tag. This avoids deploying an image that can change underneath a running release.
-
-### One-time server setup
-
-Install Docker and the Compose plugin on the server, create the deployment directory, and allow the deploy user to run Docker:
-
-```sh
-sudo mkdir -p /opt/portfolio
-sudo chown "$USER":"$USER" /opt/portfolio
-sudo usermod -aG docker "$USER"
+Production
+Browser → Caddy (HTTPS) → Express
+                           ├── Built React frontend
+                           ├── REST API
+                           └── Persistent database and uploads
 ```
 
-Log out and back in after changing the Docker group. The server must allow inbound SSH, HTTP, and HTTPS traffic. If the Docker Hub repository is private, the deploy user also needs permission to pull it; the workflow performs a non-interactive Docker Hub login during each deployment.
+The public website reads published configuration from the API. The editor uses the same portfolio renderer for its preview and publishes through authenticated API requests.
 
-### HTTPS endpoint
+## Getting started
 
-The production Compose stack runs the portfolio privately inside Docker and uses Caddy as the public reverse proxy. Caddy listens on ports `80` and `443`, automatically obtains and renews a Let's Encrypt certificate, and forwards traffic to the portfolio container.
+Use **Node.js 22** and npm to match the Docker and CI environments.
 
-Before deploying HTTPS, create these DNS records for the server IP:
+```sh
+git clone https://github.com/chan2516/portfolio_V1.git
+cd portfolio_V1
+npm ci
+```
 
-| Type | Name | Value |
+Copy the environment example:
+
+```powershell
+# Windows PowerShell
+Copy-Item .env.example .env.local
+```
+
+```sh
+# macOS / Linux
+cp .env.example .env.local
+```
+
+Set `VITE_CONTACT_FORM_ENDPOINT` to your own form-service endpoint, or leave it empty to use the email fallback. The example currently points to the original portfolio's form.
+
+```sh
+npm run dev
+```
+
+| Page | Local URL |
+| --- | --- |
+| Portfolio | http://localhost:3000 |
+| Resume | http://localhost:3000/resume |
+| Admin console | http://localhost:3000/admin |
+| API health | http://localhost:5000/api/health |
+
+The backend creates its SQLite tables automatically; no external database service is needed.
+
+### Owner setup and publishing
+
+1. Open `/admin/login` and select **Create owner account** when no accounts exist.
+2. Choose a username of 3–64 letters, numbers, dots, underscores, or hyphens, and a password of at least 12 characters. Initial setup closes once an account exists.
+3. Edit your information under **Content**, organize sections under **Structure**, and customize the appearance under **Design**.
+4. Check the device previews and switch to **Resume** to review its layout.
+5. Publish the changes to save them and update the public website.
+
+The owner can create additional administrators. Administrators can edit and publish content; account management is reserved for the owner.
+
+Drafts stay in browser memory until published and are lost on reload. Undo retains the last 40 editor changes. If another administrator publishes first, load the latest published configuration and review your draft before publishing again.
+
+## Configuration
+
+Vite reads frontend values from `.env.local`. Express loads its default `.env` file or process environment variables; it does not automatically load backend settings from `.env.local`.
+
+| Variable | Purpose | Default / behavior |
 | --- | --- | --- |
-| `A` | `@` | Your server IP |
-| `A` | `www` | Your server IP |
+| `VITE_CONTACT_FORM_ENDPOINT` | JSON-compatible contact form endpoint | Set your own; embedded at frontend build time |
+| `VITE_API_TARGET` | Development proxy target | `http://localhost:5000` |
+| `PORT` | Express port | `5000` |
+| `DB_STORAGE` | SQLite file location | `./database.sqlite` |
+| `UPLOAD_DIR` | Media storage directory | `public/uploads` |
+| `ADMIN_ORIGIN` | Additional trusted admin request origin | Optional for same-origin use |
+| `NODE_ENV` | Runtime mode | `production` serves the built frontend and enables secure cookies |
+| `TRUST_PROXY_HOPS` | Trusted reverse-proxy hops | Production Compose sets `1` for Caddy |
 
-After DNS has propagated and ports `80` and `443` are open in both the cloud firewall and UFW, the site is available at `https://chandandev.me`. Do not run another service on host ports `80` or `443`; Caddy owns those ports.
+Credentials are stored in SQLite. Production authentication requires HTTPS because session cookies are marked secure.
 
-### GitHub repository secrets
+## Development commands
 
-Add these under **Settings > Secrets and variables > Actions**:
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start frontend and backend |
+| `npm run dev:frontend` | Start Vite only |
+| `npm run dev:backend` | Start the backend development launcher |
+| `npm run lint` | TypeScript checking (`tsc --noEmit`) |
+| `npm test` | API and configuration tests |
+| `npm run build` | Build frontend into `dist/` |
+| `npm run preview` | Preview frontend build; does not start the API |
+| `npm start` | Start Express; production mode also serves `dist/` |
+
+Before proposing a code change:
+
+```sh
+npm run lint
+npm test
+npm run build
+```
+
+Tests cover authentication, projects, settings, media, portfolio configuration, and studio configuration features. Review editor behavior and responsive layouts separately in the browser.
+
+## Project structure
+
+```text
+src/
+  admin/                 Visual editor, authentication, media and account tools
+  components/            Portfolio sections and resume components
+  data/                  Default portfolio content
+  App.tsx                Application routes
+  Portfolio.tsx          Public portfolio renderer
+  siteConfig.tsx         Portfolio configuration and shared state
+server/
+  models/                Sequelize models
+  routes/                Content, settings, theme and media APIs
+  tests/                 API and configuration tests
+  auth.js                Authentication, sessions and account management
+  server.js              Express entry point
+public/                  Static assets and original downloadable resume
+docs/                    Detailed administration and deployment guide
+.github/workflows/       Validation and deployment automation
+Dockerfile               Multi-stage application image
+docker-compose.prod.yml  Production application, storage initializer and Caddy
+```
+
+## Deployment
+
+### Local container preview
+
+With Docker and Docker Compose installed:
+
+```sh
+docker compose up --build -d
+```
+
+Open http://localhost:8080 to inspect the public page and API. Production-mode admin cookies require HTTPS, so this HTTP preview is intended for public-page and API health checks.
+
+### Production
+
+The workflow in `.github/workflows/aws-deploy.yml` runs on pushes to `main`. It checks types, runs tests, builds the frontend and container, checks container health with persistent storage, pushes to Docker Hub, and deploys the commit-tagged image over SSH.
+
+Configure these GitHub Actions repository secrets:
 
 | Secret | Value |
 | --- | --- |
-| `DOCKERHUB_USERNAME` | Your Docker Hub username |
-| `DOCKERHUB_TOKEN` | A Docker Hub access token, not your account password |
-| `IP` | The server IP address or DNS name |
-| `SERVER_PASS` | The server user's SSH password |
-| `SERVER_USER` | A non-root server user in the `docker` group |
+| `DOCKERHUB_USERNAME` | Docker Hub username |
+| `DOCKERHUB_TOKEN` | Docker Hub access token |
+| `IP` | Server IP address or hostname |
+| `SERVER_USER` | Server user with Docker permissions |
+| `SERVER_PASS` | SSH password used by the current workflow |
 
-The workflow uses `sshpass -e` for the existing password-based server access. The password is read from the GitHub secret and is not written to a file or committed. SSH host-key acceptance is limited to the first connection; SSH keys are still the stronger long-term option. After adding the secrets, push to `main` to deploy.
+The server needs Docker, a current Compose plugin supporting `up --wait`, and inbound SSH, HTTP, and HTTPS access. Deployment defaults to `/opt/portfolio`.
 
-### Admin access and portfolio links
+The checked-in Caddy configuration and workflow HTTPS checks target `chandandev.me` and `www.chandandev.me`. For your own deployment, update both files to your domain and point its DNS records at the server. Configure your own contact endpoint before building. Caddy manages HTTPS and forwards requests to the private application container.
 
-Open /admin/login. If no accounts exist, use **Create owner account** to choose your username and password (at least 12 characters). The first owner is saved in the database, and setup closes once an account exists. No environment credentials are needed. Sign in and use **My account** to change your username or password. Use **Admin accounts** to create additional admins and manage their access.
+See the [detailed guide](docs/ADMIN_AND_DEPLOYMENT.md) for server setup, manual deployment, storage migration, editor controls, and troubleshooting.
 
-Admin API writes require an authenticated session. Accounts and eight-hour sessions are stored in SQLite and survive server restarts. Passwords use salted scrypt hashes; session tokens are stored as SHA-256 hashes. Production requires HTTPS for the secure session cookie. If the frontend has a different origin, set ADMIN_ORIGIN to its exact origin.
+### Storage and backups
 
-In Admin → Content, expand projects to edit Source repository URL and Live demo URL. Expand experience entries to edit Company website URL and Public work / case study URL. Links are optional; leave unavailable or private work blank. Publish saves the links with your portfolio content. Use public HTTP or HTTPS URLs; invalid links are rejected before saving.
+Local development stores data in `database.sqlite` and `public/uploads`. Production uses `/data/database.sqlite` and `/data/uploads` in the `portfolio_data` volume. Accounts, sessions, published content, and media are runtime data and are not bundled into the image.
 
-The owner can use **Admin → Admin accounts** to create other admins, disable or re-enable accounts, and reset their passwords. Admins can edit and publish portfolio content but cannot manage accounts. Disabling an account or resetting its password revokes its sessions immediately. The owner account cannot be disabled from this screen. Back up and persist `database.sqlite` along with uploaded media.
+Back up the database and uploads together using a consistent snapshot or while application writes are stopped. Do not run `docker compose down -v` against production: it deletes persistent volumes. A fresh production database requires creating its own owner account.
 
-In **Admin → Media library**, use **Upload new file** to add an image or PDF (up to 10 MB), and **Delete** to remove an unused upload. Confirm deletion in the library. Files referenced by published settings cannot be deleted until their references are removed and published. Unpublished drafts are held in the browser, so remove their references before deleting files.
+## Current limitations
 
-User accounts live in the dedicated `Users` table (UUID, unique username, password hash, owner/admin role, active status, timestamps). Existing `AdminUsers` records migrate automatically without changing passwords or sessions. All account lookups and updates use Sequelize query methods with scalar values; request fields and user IDs are validated, and client-supplied roles or query operators are rejected. Login and current-password checks are rate limited. Passwords and hashes are never returned in account API responses. The owner can edit an admin username and password through **Admin accounts → Edit login**.
+- New interactive layouts require registering or editing React components.
+- Text formatting applies to whole elements. Markup or list-position changes can require reapplying formatting.
+- Drafts do not survive browser reloads. Element offsets can overlap surrounding content and need responsive checks.
+- Resume export uses the browser print dialog; the original downloadable PDF remains a separate static file.
+- SQLite and local uploads suit a single-server deployment. Multiple application instances would need a different shared-storage and database design.
 
-### Visual editor controls
+## Author
 
-Use **Add user** in the editor header (owner only) to create a separate admin login for the same portfolio. Publish checks the version you loaded: if someone else publishes first, your draft stays open and **Load latest published** lets you load their version. Undo can restore your previous draft for review.
+**Chandan Vishwakarma** · [GitHub](https://github.com/chan2516)
 
-The right panel has **Text & links** and **Images** tabs. Click a specific word, heading, or labelled link to edit its text and typography; selected project and profile links also expose their destination URL. Click an image or select a profile, project, or custom-section image from **Images**. Paste an image URL, upload or choose a library file, adjust dimensions/crop/alignment, remove the image, or reset it. Image controls are available in Website view.
+## License
 
-Use **Design** for the site font, heading font, paragraph size and line spacing. These settings apply to website and resume text; code remains monospace, and selected-element formatting takes priority. Use **Content** for source data and optional project, experience, or contact Website URL fields. Publish saves links, images and styles to the database. Invalid URLs show their exact field in the publish error.
-
-### Studio preview and content controls
-
-- Preview toolbar: zoom from 25% to 200%, Fit, and 100%. Zoom scales the canvas without changing the selected device viewport. Editing and image selection work inside the scaled iframe.
-- Structure: add custom content or blog sections, edit posts, and reorder sections. New sections receive navigation items automatically and are inserted before the footer.
-- Content → Navigation: rename menu items, choose section targets, add external website links, reorder, and remove items. Hidden sections are omitted from the menu.
-- Design: shared typography, colors, spacing, and Lucide icon color/size/stroke. The Design guide explains editable controls. Individual icon shapes, animation behavior, and new component layouts are maintained in src/components.
-- Publish website saves content, navigation, blogs, and icon styling in the database. Preview zoom is a local editor control. Existing published designs remain compatible.
-
-### Updated full-stack deployment
-
-The Docker dependency stage compiles SQLite from source against the same Debian Bookworm/Node 22 environment used at runtime. This avoids downloaded native binaries that require a newer glibc (`GLIBC_2.38 not found`). The build checks that the native binding loads, and CI then checks application/container health. Build tools remain outside the final image.
-
-If deployment reports `container portfolio is unhealthy`, the pull completed but the application did not pass its database/API health check. The release now tests the built container with a real data volume before pushing, prepares storage ownership in a one-shot initializer, and prints application and health-check logs on failure. The deploy script reloads Caddy after API readiness. Push these changes as a new commit; rerunning an older workflow uses the older image and configuration. Persistent production data is retained.
-
-Deploy the complete release, not just dist: the image now includes Express, SQLite dependencies, and the built frontend. Push to main to run lint, tests, build, and deployment. The API is private on port 5000; Caddy handles HTTPS, with TRUST_PROXY_HOPS=1 preserving secure request origins. Compose waits for database/API health before reporting success. The server needs the current Docker Compose plugin supporting up --wait.
-
-Manual deployment: place docker-compose.prod.yml and Caddyfile in /opt/portfolio, set DOCKERHUB_USERNAME and IMAGE_TAG to the desired commit tag, then run `docker compose -f docker-compose.prod.yml pull` and `docker compose -f docker-compose.prod.yml up -d --wait --wait-timeout 120`. Inspect `docker compose -f docker-compose.prod.yml logs --tail=100` on failure. Never use `down -v` on production because it deletes persistent data.
-
-Local accounts and published edits are not included in the Docker image. The old frontend-only stack has no application database; first deployment creates a fresh production database. Create the production owner at /admin/login over HTTPS. To transfer local data instead, stop writes, back up database.sqlite and public/uploads together, and restore them into the production volume at /data/database.sqlite and /data/uploads (owner UID/GID 1000:1000) before starting. Back up existing production data first; never overwrite a live database. HTTPS is required for production login cookies. Local Compose on port 8080 is for public-page/API health testing.
-
-### Icons, skills, and tags
-
-In Website Edit mode, click a Lucide icon to open Icons on the right. Change its shape, color (hex), size (50–150%), or stroke (1–3), or reset it. Each project has independent icon overrides. Design controls retain shared defaults. The contact phone background preserves its translucent color so the icon remains visible.
-
-Content → skill Groups exposes Core Domain, Visible skill group, and Show checkmarks on skill tags for every group, even when older records omit these fields. Edit, remove, or add skills/technology/features/highlights in their lists, including empty lists. Structure → section properties → tags lets any section have additional tag badges. Publish saves these settings to the database.
+No license file is currently included. Add an appropriate license before offering reuse under specific open-source terms.
